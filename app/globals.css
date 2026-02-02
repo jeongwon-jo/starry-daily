@@ -1,26 +1,242 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: linear-gradient(to bottom,
+        #11041B,
+        #290F2D);
+  --color-primary-100: #F5F1F8;
+  --color-primary-200: #DCD8E0;
+  --color-primary-300: #AE9FBF;
+  --color-primary-400: #8E8996;
+  --color-primary-500: #77727E;
+  /* Button002 */
+  --color-primary-600: #483C4D;
+  /* Button001 */
+  --color-primary-700: #3B2640;
+  /* Bg002 */
+  --color-primary-800: #332937;
+  /* Bg001 */
+  --color-primary-900: #1F1128;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-SchoolSafeOuting: var(--font-SchoolSafeOuting);
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-300: var(--color-primary-300);
+  --color-primary-400: var(--color-primary-400);
+  --color-primary-500: var(--color-primary-500);
+  --color-primary-600: var(--color-primary-600);
+  --color-primary-700: var(--color-primary-700);
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root:not(.dark) {
+  --background: linear-gradient(to bottom,
+      #F5E8FF,
+      #FDF9FE);
+  --color-primary-100: #471E67;
+  --color-primary-200: #6A4F81;
+  --color-primary-300: #9D8AAC;
+  --color-primary-400: #C4B1D3;
+  --color-primary-500: #D3C4DE;
+  --color-primary-600: #F8F6F9;
+  --color-primary-700: #EAE2EF;
+  --color-primary-800: #FBF5FF;
+  --color-primary-900: #ffffff80;
+}
+
+@layer base {
+  ol,
+  ul,
+  li {
+    list-style: none;
+  }
+
+  img {
+    border: 0;
+    vertical-align: middle;
+    -webkit-perspective: 1;
+    perspective: 1;
+    image-rendering: -webkit-optimize-contrast;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    max-width: 100%;
+  }
+
+  blockquote:before,
+  blockquote:after,
+  q:before,
+  q:after {
+    content: '';
+    content: none;
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+  button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+  }
+
+  th,
+  td {
+    vertical-align: middle;
+    padding: 0;
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  fieldset {
+    border: 0;
+    padding: 0.01em 0 0 0;
+    margin: 0;
+    min-width: 0;
+  }
+
+  legend,
+  caption {
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+    line-height: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    outline: none;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+  }
+
+  body {
+    font-size: 14px;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-SchoolSafeOuting), "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "맑은 고딕", "dotum", "돋움", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  }
+
+  input[type="password"]::-ms-reveal,
+  input[type="password"]::-ms-clear {
+    display: none;
+  }
+
+  input[type="password"]::-webkit-clear-button,
+  input[type="password"]::-webkit-inner-spin-button,
+  input[type="password"]::-webkit-credentials-auto-fill-button {
+    display: none !important;
+    appearance: none;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.wrap {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
 }
+
+.app_bottom {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 600px;
+  padding: 0 20px;
+}
+
+.container {
+  padding-top: 48px;
+}
+
+.form-control {
+  width: 100%;
+  background-color: var(--color-primary-900);
+  height: 44px;
+  border-radius: 8px;
+  padding: 0 12px;
+  color: var(--color-primary-100);
+}
+
+.form-control::placeholder {
+  color: var(--color-primary-500);
+}
+
+@layer components {
+  .checkbox label {
+    @apply flex items-center text-base text-primary-300 leading-[1.4]
+  }
+  .checkbox input[type=checkbox] {
+    @apply hidden
+  }
+  .checkbox input[type=checkbox]+em {
+    @apply inline-block size-5 font-normal mr-2 shrink-0 bg-[url(../assets/images/icon/icon_checkbox.svg)] bg-no-repeat bg-center bg-contain;
+  }
+  .checkbox input[type=checkbox]:checked+em {
+    @apply bg-[url(../assets/images/icon/icon_checkbox_on.svg)]
+  }
+}
+
+
+@layer utilities {
+  @keyframes bottleShake {
+    0%   { transform: rotate(0deg); }
+    10%  { transform: rotate(4deg); }
+    20%  { transform: rotate(-4deg); }
+    30%  { transform: rotate(4deg); }
+    40%  { transform: rotate(-4deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  @keyframes starShake {
+    0%   { transform: translate(0, 0) rotate(0deg); }
+    15%  { transform: translate(-5px, -1px) rotate(-6deg); }
+    30%  { transform: translate(2px, 1px) rotate(6deg); }
+    45%  { transform: translate(-1px, 5px) rotate(-4deg); }
+    60%  { transform: translate(1px, -3px) rotate(4deg); }
+    75%  { transform: translate(-2px, 1px) rotate(-2deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+
+  .animate-bottle {
+    animation: bottleShake 2.5s ease-in-out infinite;
+    transform-origin: bottom center;
+  }
+
+  .animate-star {
+    animation:
+      starShake 2.5s ease-in-out infinite;
+    animation-delay: 0.15s;
+    transform-origin: center;
+    will-change: transform;
+  }
+}
+
