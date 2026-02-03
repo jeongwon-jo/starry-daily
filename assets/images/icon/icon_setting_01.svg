@@ -1,0 +1,30 @@
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_in_1039_2117)">
+<path d="M21.4371 18.5376C22.1876 19.2824 22.1876 20.5426 21.4371 21.3446C20.6867 22.0894 19.4092 22.0894 18.6015 21.3446L9.22949 12.0643L12.0651 9.25732L21.4371 18.5376Z" fill="#515D8B"/>
+<path d="M11.5438 3.29968L12.701 8.56998L12.0651 9.25741L9.22948 12.0644L8.53632 12.6946L3.21446 11.5488L2 6.16398L2.63587 5.53383L6.39383 9.25741L9.22948 6.45041L5.47152 2.72682L6.1074 2.09668L11.5438 3.29968Z" fill="#9B8FEF"/>
+</g>
+<defs>
+<filter id="filter0_in_1039_2117" x="2" y="2.09668" width="20" height="20.8064" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0"/>
+<feBlend mode="normal" in2="shape" result="effect1_innerShadow_1039_2117"/>
+<feTurbulence type="fractalNoise" baseFrequency="10 10" stitchTiles="stitch" numOctaves="3" result="noise" seed="8718" />
+<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+<feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="effect1_innerShadow_1039_2117" in="coloredNoise1" result="noise1Clipped" />
+<feFlood flood-color="rgba(0, 0, 0, 0.12)" result="color1Flood" />
+<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+<feMerge result="effect2_noise_1039_2117">
+<feMergeNode in="effect1_innerShadow_1039_2117" />
+<feMergeNode in="color1" />
+</feMerge>
+</filter>
+</defs>
+</svg>
