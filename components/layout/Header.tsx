@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { HeaderBackIcon } from "../icons";
+import Link from "next/link";
 
 type HeaderType =
   | "default"
@@ -10,12 +11,14 @@ type HeaderType =
 type HeaderProps = {
 	type?: HeaderType;
 	title?: string;
+	isSetting?: boolean;
 	onBack?: () => void;
 };
 
 export const Header = ({
 	type = "default",
 	title,
+	isSetting = false,
 	onBack,
 }: HeaderProps) => {
 	const router = useRouter();
@@ -45,7 +48,14 @@ export const Header = ({
 							<HeaderBackIcon className="text-primary-400" />
 						</button>
 						<h1 className="text-lg font-normal text-primary-100">{title}</h1>
-						<div></div>
+						<div className="size-6">
+							{isSetting && (
+								<Link
+									href={"/setting"}
+									className="inline-block size-6 bg-[url('../assets/images/icon/icon_setting.svg')] bg-no-repeat"
+								></Link>
+							)}
+						</div>
 					</div>
 				</header>
 			</>

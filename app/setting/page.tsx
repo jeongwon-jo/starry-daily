@@ -20,7 +20,7 @@ export default function SettingPage() {
 			<Header type="navigation" title="설정"></Header>
 			<div className="container">
 				<div className="p-5">
-					<div className="p-3 rounded-xl bg-[rgb(255,255,255,0.04)] text-primary-100">
+					<div className="p-3 rounded-xl bg-(--color-surface-overlay) text-primary-100">
 						별별이 님 반가워요!
 					</div>
 				</div>
