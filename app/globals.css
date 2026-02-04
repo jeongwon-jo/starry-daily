@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --background: linear-gradient(to bottom,
         #11041B,
@@ -206,6 +208,24 @@
   .checkbox input[type=checkbox]:checked+em {
     @apply bg-[url(../assets/images/icon/icon_checkbox_on.svg)]
   }
+  .diary_star.color_happy {
+    @apply bg-[url(../assets/images/sub/star_happy.svg)] bg-no-repeat bg-contain
+  }
+  .diary_star.color_love {
+    @apply bg-[url(../assets/images/sub/star_love.svg)] bg-no-repeat bg-contain
+  }
+  .diary_star.color_sad {
+    @apply bg-[url(../assets/images/sub/star_sad.svg)] bg-no-repeat bg-contain
+  }
+  .diary_star.color_angry {
+    @apply bg-[url(../assets/images/sub/star_angry.svg)] bg-no-repeat bg-contain
+  }
+  .diary_star.color_unrest {
+    @apply bg-[url(../assets/images/sub/star_unrest.svg)] bg-no-repeat bg-contain
+  }
+  .diary_star.color_tired {
+    @apply bg-[url(../assets/images/sub/star_tired.svg)] bg-no-repeat bg-contain
+  }
 }
 
 
@@ -262,6 +282,19 @@
   .fade-bottle-3 {
     animation: fadeInSoft 4s ease-in-out infinite;
     animation-delay: 1.2s;
+  }
+
+  @keyframes sheetUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .animate-sheet-up {
+    animation: sheetUp 0.3s ease-out forwards;
   }
 }
 

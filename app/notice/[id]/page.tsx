@@ -5,7 +5,7 @@ import { Button } from "@/components/ui";
 import Link from "next/link";
 
 
-export default function NoticePage() {
+export default function NoticeDtlPage() {
   return (
 		<div className="w-full min-h-dvh">
 			<Header type="navigation" title="공지사항" isSetting={true}></Header>

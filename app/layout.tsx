@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-		<html lang="ko" className="dark">
+		<html lang="ko">
 			<body className={SchoolSafeOuting.variable}>
 				<ThemeProvider initialTheme="dark">
 					<div className="wrap">{children}</div>

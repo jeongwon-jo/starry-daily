@@ -26,7 +26,15 @@ export const Header = ({
 	if (type == "default") {
 		return (
 			<>
-				<header className="header  h-14 fixed left-[50%] translate-x-[-50%] top-0 w-full max-w-150 z-100"></header>
+				<header className="header h-12 fixed left-[50%] translate-x-[-50%] top-0 w-full max-w-150 z-100">
+					<div className="flex justify-between items-center h-full px-5">
+						<h1 className="text-xl text-primary-100 font-bold">별별하루</h1>
+						<Link
+							href={"/setting"}
+							className="inline-block size-6 bg-[url('../assets/images/icon/icon_setting.svg')] bg-no-repeat"
+						></Link>
+					</div>
+				</header>
 			</>
 		);
 	} else if (type == "navigation") {
