@@ -223,8 +223,62 @@
   .diary_star.color_unrest {
     @apply bg-[url(../assets/images/sub/star_unrest.svg)] bg-no-repeat bg-contain
   }
-  .diary_star.color_tired {
+  .diary_star.color_tired { 
     @apply bg-[url(../assets/images/sub/star_tired.svg)] bg-no-repeat bg-contain
+  }
+  .select_mood input[type=radio] {
+    @apply hidden
+  }
+  .select_mood input[type=radio]+em {
+    @apply flex flex-col justify-center items-center gap-1 not-italic p-3 rounded-lg
+  }
+  .select_mood input[type=radio]+em span {
+    @apply text-[12px] text-primary-200 not-italic
+  }
+  .select_mood input[type=radio]+em img {
+    @apply w-7
+  }
+  .select_mood input[type=radio]:checked+em {
+    @apply bg-[rgb(255,255,255,0.1)]
+  }
+  .diary-textarea {
+    font-size: 16px;
+    line-height: 32px;
+    background-image: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0.1) 1px,
+        transparent 1px);
+    background-size: 100% 32px;
+    background-position-y: 31px;
+  }
+  .scroll::-webkit-scrollbar {
+    @apply w-1.5 h-1.5
+  }
+  .scroll::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-primary-500
+  }
+  .scroll::-webkit-scrollbar-track {
+    @apply rounded-full
+  }
+  .star {
+    @apply inline-block size-6.5
+  }
+  .star.color_happy {
+    @apply bg-[url(../assets/images/sub/calendar_happy.svg)] bg-no-repeat bg-center bg-size-[26px_25px]
+  }
+  .star.color_love {
+    @apply bg-[url(../assets/images/sub/calendar_love.svg)] bg-no-repeat bg-center bg-size-[26px_25px]
+  }
+  .star.color_sad {
+    @apply bg-[url(../assets/images/sub/calendar_sad.svg)] bg-no-repeat bg-center bg-size-[26px_25px]
+  }
+  .star.color_angry {
+    @apply bg-[url(../assets/images/sub/calendar_angry.svg)] bg-no-repeat bg-center bg-size-[26px_25px]
+  }
+  .star.color_unrest {
+    @apply bg-[url(../assets/images/sub/calendar_unrest.svg)] bg-no-repeat bg-center bg-size-[26px_25px]
+  }
+  .star.color_tired {
+    @apply bg-[url(../assets/images/sub/calendar_tired.svg)] bg-no-repeat bg-center bg-size-[26px_25px]
   }
 }
 
@@ -295,6 +349,58 @@
 
   .animate-sheet-up {
     animation: sheetUp 0.3s ease-out forwards;
+  }
+  
+  @keyframes imageChange {
+    0% {
+      transform: scale(0.9) rotate(var(--from-rotate));
+    }
+
+    100% {
+      transform: scale(1) rotate(var(--to-rotate));
+    }
+  }
+
+  .animate-imageChange {
+    animation: imageChange 0.6s ease-out forwards;
+  }
+
+  @keyframes paperFold {
+    0% {
+      transform: perspective(800px) rotateY(0deg);
+      opacity: 1;
+    }
+
+    70% {
+      transform: perspective(800px) rotateY(-90deg);
+      opacity: 0.7;
+    }
+
+    100% {
+      transform: perspective(800px) rotateY(-180deg) scaleX(0.05);
+      opacity: 0;
+    }
+  }
+
+  .animate-paperFold {
+    animation: paperFold 0.6s ease-in forwards;
+    transform-origin: right center;
+  }
+
+  @keyframes imageReveal {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-imageReveal {
+    animation: imageReveal 0.4s ease-out forwards;
   }
 }
 

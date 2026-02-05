@@ -9,8 +9,7 @@ import angryMood from "@/assets/images/sub/star_angry_face.svg";
 import unrestMood from "@/assets/images/sub/star_unrest_face.svg";
 import tiredMood from "@/assets/images/sub/star_tired_face.svg";
 export default function DiaryWritePage() {
-
-  return (
+	return (
 		<div className="w-full min-h-dvh">
 			<Header type="navigation" title="작성하기" isSetting={true}></Header>
 			<div className="container">
@@ -32,6 +31,7 @@ export default function DiaryWritePage() {
                   scroll
                   overflow-y-auto
                 "
+								value={"오늘은 친구와"}
 								placeholder="일기를 등록해봐요"
 							></textarea>
 						</div>
@@ -42,7 +42,7 @@ export default function DiaryWritePage() {
 							<div className="flex items-center">
 								<div className="select_mood">
 									<label htmlFor="mood_happy">
-										<input type="radio" id="mood_happy" name="radio_mood" />
+										<input type="radio" id="mood_happy" name="radio_mood" checked />
 										<em>
 											<span>기쁨</span>
 											<img src={happyMood.src} alt="" />
