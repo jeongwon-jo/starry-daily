@@ -1,7 +1,7 @@
 "use client";
 
 import { Header } from "@/components/layout";
-import { Button, Input, MessageModal } from "@/components/ui";
+import { Button, Input } from "@/components/ui";
 import { useState } from "react";
 
 export default function LoginTypeEmailPage() {
@@ -45,11 +45,6 @@ export default function LoginTypeEmailPage() {
 					</form>
 				</div>
 			</div>
-			<MessageModal
-				open={open}
-				message={"이메일을 입력해 주세요."}
-				onClose={() => setOpen(false)}
-			/>
 		</div>
 	);
 }
