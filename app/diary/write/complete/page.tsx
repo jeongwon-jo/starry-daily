@@ -2,6 +2,19 @@
 
 import { Header } from "@/components/layout";
 import { useEffect, useState } from "react";
+import star1 from "@/assets/images/sub/fold_complete_star_01.svg";
+import star2 from "@/assets/images/sub/fold_complete_star_02.svg";
+import star3 from "@/assets/images/sub/fold_complete_star_03.svg";
+import star4 from "@/assets/images/sub/fold_complete_star_04.svg";
+import star5 from "@/assets/images/sub/fold_complete_star_05.svg";
+
+const COMPLETE_STARS = [
+	{ src: star1, left: "127%", top: "20%", width: 26, height: 26 },
+	{ src: star3, left: "-57%%", top: "79%", width: 26, height: 26 },
+	{ src: star2, left: "167%", top: "17%", width: 20, height: 20 },
+	{ src: star4, left: "-34%", top: "94%", width: 20, height: 20 },
+	{ src: star5, left: "38%", top: "86%", width: 16, height: 16 },
+];
 
 const STEPS = [
 	{
@@ -20,40 +33,40 @@ const STEPS = [
 		width: 148,
 		text: "“행운이 찾아올거야!”",
 		image: "/images/diary_complete_03.png",
-		rotate: -10,
+		rotate: -35,
 	},
 	{
 		width: 106,
 		text: "“행운이 찾아올거야!”",
 		image: "/images/diary_complete_04.png",
-		rotate: 0,
+		rotate: 65,
 	},
 	{
 		width: 111,
 		text: "“별을 다 모았어!\n오늘 하루도 고생했어”",
 		image: "/images/diary_complete_05.png",
-		rotate: 0,
+		rotate: 65,
 	},
 ];
 
 
 export default function DiaryWriteCompletePage() {
-	const [step, setStep] = useState(2);
+	const [step, setStep] = useState(0);
 	const [phase, setPhase] = useState<"fold" | "show">("fold");
 	const current = STEPS[step];
-	const prevStep = step > 0 ? step - 1 : 0;
-
-	const prevRotate = STEPS[prevStep].rotate;
+	const [prevStep, setPrevStep] = useState<number>(0);
 
 	useEffect(() => {
 		if (step >= STEPS.length - 1) return;
 
 		const timer = setTimeout(() => {
-			setStep((prev) => prev + 1);
-		}, 3000);
+			setPrevStep(step); // 이전 이미지 유지
+			setStep(step + 1);
+		}, 2000);
 
 		return () => clearTimeout(timer);
 	}, [step]);
+
 	
 	return (
 		<div className="w-full min-h-dvh">
@@ -67,15 +80,15 @@ export default function DiaryWriteCompletePage() {
 						>
 							{current.text}
 						</p>
-						<div className="w-full flex justify-center h-120">
-							<div className="flex jutify-center">
+						<div className="w-full flex justify-center h-80">
+							<div className="flex jutify-center h-full">
 								{step == 2 ? (
-									<div className="relative w-[148px] h-[148px]">
+									<div className="relative w-[111px] h-full flex items-center">
 										{phase === "fold" && (
 											<img
 												src="/images/diary_complete_02.png"
 												alt=""
-												className="absolute inset-0 animate-paperFold origin-right"
+												className="animate-paperFold -rotate-[35deg]"
 												onAnimationEnd={() => setPhase("show")}
 											/>
 										)}
@@ -84,24 +97,77 @@ export default function DiaryWriteCompletePage() {
 											<img
 												src="/images/diary_complete_03.png"
 												alt=""
-												className="absolute inset-0 animate-imageReveal"
+												className="animate-imageReveal"
 											/>
 										)}
 									</div>
 								) : (
-									<img
-										key={step}
-										src={current.image}
-										alt=""
-										className="object-contain animate-imageChange transition-all duration-300"
-										width={current.width}
-										style={
-											{
-												"--from-rotate": `${prevRotate}deg`,
-												"--to-rotate": `${current.rotate}deg`,
-											} as React.CSSProperties
-										}
-									/>
+									<div className="relative w-[111px] h-full flex items-center justify-center">
+										{step === STEPS.length - 1 && (
+											<>
+												<div
+													className="
+													absolute inset-1/2 -translate-x-1/2 -translate-y-1/2
+													w-[264px] h-[264px]
+													rounded-full
+													bg-[#fff]/30
+													blur-[80px]
+													animate-fadeInSlow
+												"
+												/>
+												<div className="absolute inset-0 pointer-events-none">
+													{COMPLETE_STARS.map((star, i) => (
+														<span
+															key={i}
+															className="absolute -translate-x-1/2 -translate-y-1/2 animate-starPop"
+															style={{
+																width: star.width,
+																height: star.height,
+																left: star.left,
+																top: star.top,
+																"--star-delay": `${i * 0.22}s`,
+															} as React.CSSProperties}
+														>
+															<img
+																src={star.src.src}
+																alt=""
+																className="w-full h-full object-contain"
+															/>
+														</span>
+													))}
+												</div>
+											</>
+										)}
+										{prevStep !== null && (
+											<img
+												key={`prev-${step}`}
+												src={STEPS[prevStep].image}
+												alt=""
+												className="absolute object-contain animate-fadeOutSlow"
+												width={STEPS[prevStep].width}
+												style={
+													{
+														"--from-rotate": `${STEPS[prevStep].rotate}deg`,
+														"--to-rotate": `${current.rotate}deg`,
+													} as React.CSSProperties
+												}
+											/>
+										)}
+
+										<img
+											key={`current-${step}`}
+											src={current.image}
+											alt=""
+											className="absolute object-contain animate-fadeInSlow"
+											width={current.width}
+											style={
+												{
+													"--from-rotate": `${STEPS[prevStep].rotate}deg`,
+													"--to-rotate": `${current.rotate}deg`,
+												} as React.CSSProperties
+											}
+										/>
+									</div>
 								)}
 							</div>
 						</div>

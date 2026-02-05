@@ -1,0 +1,27 @@
+<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_n_1203_1922)">
+<path d="M12.3856 0.349037C13.568 -0.4568 15.1895 0.203664 15.4724 1.60636L16.3412 5.91447C16.4363 6.38566 16.6978 6.80686 17.078 7.10098L20.5541 9.79011C21.6859 10.6657 21.5588 12.4119 20.3122 13.1144L16.4834 15.272C16.0646 15.508 15.7449 15.8869 15.5826 16.3393L14.0993 20.4763C13.6163 21.8232 11.9163 22.242 10.863 21.2735L7.62782 18.2988C7.27399 17.9735 6.81481 17.7865 6.33435 17.772L1.9415 17.6396C0.511217 17.5965 -0.412388 16.1091 0.183238 14.808L2.01259 10.812C2.21267 10.375 2.24865 9.88046 2.11395 9.41905L0.882367 5.2003C0.48137 3.8267 1.61058 2.48866 3.03204 2.65308L7.39777 3.15806C7.87526 3.21329 8.35668 3.0947 8.75388 2.82401L12.3856 0.349037Z" fill="url(#paint0_linear_1203_1922)"/>
+</g>
+<defs>
+<filter id="filter0_n_1203_1922" x="0" y="0" width="21.3301" height="21.8022" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feTurbulence type="fractalNoise" baseFrequency="10 10" stitchTiles="stitch" numOctaves="3" result="noise" seed="22" />
+<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
+<feComponentTransfer in="alphaNoise" result="coloredNoise1">
+<feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+</feComponentTransfer>
+<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
+<feFlood flood-color="rgba(0, 0, 0, 0.12)" result="color1Flood" />
+<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
+<feMerge result="effect1_noise_1203_1922">
+<feMergeNode in="shape" />
+<feMergeNode in="color1" />
+</feMerge>
+</filter>
+<linearGradient id="paint0_linear_1203_1922" x1="14.8765" y1="-1.34851" x2="5.06863" y2="22.7306" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFEEBF"/>
+<stop offset="1" stop-color="#FFD768"/>
+</linearGradient>
+</defs>
+</svg>
