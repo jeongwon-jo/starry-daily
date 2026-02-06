@@ -2,9 +2,10 @@
 import React from 'react';
 
 interface InputProps {
-	id?:string;
+	id?: string;
 	value?: string;
 	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 	placeholder?: string;
 	type?: string;
 	name?: string;
@@ -21,6 +22,7 @@ export const Input = React.memo(
 				id,
 				value,
 				onChange,
+				onKeyDown,
 				placeholder = "",
 				type = "text",
 				name = "",
@@ -46,6 +48,7 @@ export const Input = React.memo(
 					readOnly={readOnly}
 					required={required}
 					value={value}
+					onKeyDown={onKeyDown}
 				/>
 			);
 		},
