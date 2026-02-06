@@ -20,8 +20,6 @@ export default async function NoticeDtlPage({ params }: Props) {
 		.eq("id", id)
 		.single();
 
-	console.log(notice);
-
 	if (error || !notice) {
 		return (
 			<div className="w-full min-h-dvh">

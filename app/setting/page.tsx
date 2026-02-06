@@ -11,14 +11,25 @@ import settingIcon7 from "@/assets/images/icon/icon_setting_07.svg";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ToggleSwitch } from "@/components/ui";
+import type { User } from "@supabase/supabase-js";
 
 export default function SettingPage() {
 	const router = useRouter();
+	const [user, setUser] = useState<User | null>(null);
 	const [darkMode, setDarkMode] = useState(false);
 	const [lockMode, setLockMode] = useState(false);
 
+	useEffect(() => {
+		const supabase = createClient();
+
+		supabase.auth.getUser().then(({ data: { user } }) => {
+			console.log(user)
+			setUser(user);
+		});
+	}, []);
+	
 	const handleLogout = async () => {
 		const supabase = createClient();
 		await supabase.auth.signOut();
@@ -32,7 +43,7 @@ export default function SettingPage() {
 			<div className="container">
 				<div className="p-5">
 					<div className="p-3 rounded-xl bg-(--color-surface-overlay) text-primary-100">
-						별별이 님 반가워요!
+						{user?.user_metadata.nickname}님 반가워요!
 					</div>
 				</div>
 				<div className="mt-5">
