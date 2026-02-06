@@ -2,8 +2,16 @@ import { useState } from "react";
 import { Button, Input } from "../ui";
 import { StepProps } from "@/app/signup/step1/page";
 
-export const StepName = ({ onNext }: StepProps) => {
-	const [name, setName] = useState("");
+export const StepName = ({ form, onNext }: StepProps) => {
+	const [name, setName] = useState(form.name || "");
+
+	// 띄어쓰기 입력 방지
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setName(e.target.value.replace(/\s/g, ""));
+	};
+
+	const hasSpace = /\s/.test(name);
+	const canNext = name.length > 0 && !hasSpace;
 
 	return (
 		<div className="w-full shrink-0 px-5">
@@ -13,11 +21,16 @@ export const StepName = ({ onNext }: StepProps) => {
 
 			<Input
 				value={name}
-				onChange={(e) => setName(e.target.value)}
+				onChange={handleChange}
 				placeholder="띄어쓰기 없이 입력"
 			/>
 
-			<Button className="mt-6" full disabled={!name} onClick={onNext}>
+			<Button
+				className="mt-6"
+				full
+				disabled={!canNext}
+				onClick={() => onNext({ name })}
+			>
 				다음
 			</Button>
 		</div>

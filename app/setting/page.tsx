@@ -8,12 +8,23 @@ import settingIcon4 from "@/assets/images/icon/icon_setting_04.svg";
 import settingIcon5 from "@/assets/images/icon/icon_setting_05.svg";
 import settingIcon6 from "@/assets/images/icon/icon_setting_06.svg";
 import settingIcon7 from "@/assets/images/icon/icon_setting_07.svg";
+import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
-import { ToggleSwitch } from "@/components/ui";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ToggleSwitch } from "@/components/ui";
+
 export default function SettingPage() {
-  const [darkMode, setDarkMode] = useState(false);
-  const [lockMode, setLockMode] = useState(false);
+	const router = useRouter();
+	const [darkMode, setDarkMode] = useState(false);
+	const [lockMode, setLockMode] = useState(false);
+
+	const handleLogout = async () => {
+		const supabase = createClient();
+		await supabase.auth.signOut();
+		router.refresh();
+		router.replace("/login");
+	};
 
   return (
 		<div className="w-full min-h-dvh">
@@ -106,7 +117,7 @@ export default function SettingPage() {
 								/>
 							</div>
 						</div>
-						<div className="flex justify-between items-center px-2">
+						<div className="flex justify-between items-center px-2 mb-6">
 							<div className="flex items-center gap-2">
 								<div className="size-6">
 									<img src={settingIcon7.src} alt="탈퇴하기" />
@@ -115,6 +126,19 @@ export default function SettingPage() {
 							</div>
 							<div className="size-4 shrink-0 bg-[url('../assets/images/icon/icon_setting_link.svg')] bg-no-repeat bg-contain"></div>
 						</div>
+						<button
+							type="button"
+							className="flex justify-between items-center px-2 w-full text-left"
+							onClick={handleLogout}
+						>
+							<div className="flex items-center gap-2">
+								<div className="size-6">
+									<img src={settingIcon7.src} alt="로그아웃" />
+								</div>
+								<p className="text-primary-100">로그아웃</p>
+							</div>
+							<div className="size-4 shrink-0 bg-[url('../assets/images/icon/icon_setting_link.svg')] bg-no-repeat bg-contain" />
+						</button>
 					</div>
 				</div>
 			</div>

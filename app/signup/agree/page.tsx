@@ -3,13 +3,32 @@
 import { Header } from "@/components/layout";
 import { Button } from "@/components/ui";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
 
 export default function SignupAgreePage() {
-  const [agreeAll, setAgreeAll] = useState(false)
-  const [agree1, setAgree1] = useState(false)
-  const [agree2, setAgree2] = useState(false)
-  const [agree3, setAgree3] = useState(false)
+  const router = useRouter();
+  const [agree1, setAgree1] = useState(false);
+  const [agree2, setAgree2] = useState(false);
+  const [agree3, setAgree3] = useState(false);
+
+  const handleAgreeAllChange = useCallback((checked: boolean) => {
+    setAgree1(checked);
+    setAgree2(checked);
+    setAgree3(checked);
+  }, []);
+
+  const agreeAll = agree1 && agree2;
+  const canProceed = agreeAll;
+
+  const handleNext = () => {
+    if (canProceed) {
+      if (typeof window !== "undefined") {
+        sessionStorage.setItem("signup_agreed", "true");
+      }
+      router.push("/signup/step1");
+    }
+  };
 
   return (
 		<div className="w-full min-h-dvh">
@@ -34,7 +53,7 @@ export default function SignupAgreePage() {
 										type="checkbox"
 										id="agreeAll"
 										checked={agreeAll}
-										onChange={(e) => setAgreeAll(e.target.checked)}
+										onChange={(e) => handleAgreeAllChange(e.target.checked)}
 									/>{" "}
 									<em></em>{" "}
 									<span className="text-primary-100">전체 동의하기</span>
@@ -55,7 +74,7 @@ export default function SignupAgreePage() {
 								</label>
 							</div>
 							<Link
-								href={""}
+								href={"/setting/term"}
 								className="size-4 inline-block bg-[url('../assets/images/icon/icon_link_arrow.svg')] bg-no-repeat bg-center"
 							></Link>
 						</div>
@@ -73,7 +92,7 @@ export default function SignupAgreePage() {
 								</label>
 							</div>
 							<Link
-								href={""}
+								href={"/setting/term"}
 								className="size-4 inline-block bg-[url('../assets/images/icon/icon_link_arrow.svg')] bg-no-repeat bg-center"
 							></Link>
 						</div>
@@ -90,14 +109,21 @@ export default function SignupAgreePage() {
 								</label>
 							</div>
 							<Link
-								href={""}
+								href={"/setting/term"}
 								className="size-4 inline-block bg-[url('../assets/images/icon/icon_link_arrow.svg')] bg-no-repeat bg-center"
 							></Link>
 						</div>
 					</div>
 				</div>
 				<div className="app_bottom">
-					<Button type="button" size="md" variant="primary700" full>
+					<Button
+						type="button"
+						size="md"
+						variant="primary700"
+						full
+						disabled={!canProceed}
+						onClick={handleNext}
+					>
 						다음
 					</Button>
 				</div>

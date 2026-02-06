@@ -1,0 +1,10 @@
+NEXT_PUBLIC_SUPABASE_URL=https://ylruvfnsrlkzpjhwgyks.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY=sb_publishable_me2PN0xYDH2re-vPU7VFsw_hIwnmOYe
+RESEND_API_KEY=re_QBAhQAAw_DQ5UgPxwDMoKw8sv8kkeWZNM
+# Connect to Supabase via connection pooling
+DATABASE_URL="postgresql://postgres.ylruvfnsrlkzpjhwgyks:[poDteCnOUp0EH1bL]@aws-1-ap-northeast-2.pooler.supabase.com:6543/postgres?pgbouncer=true"
+
+# Direct connection to the database. Used for migrations
+DIRECT_URL="postgresql://postgres.ylruvfnsrlkzpjhwgyks:[poDteCnOUp0EH1bL]@aws-1-ap-northeast-2.pooler.supabase.com:5432/postgres"
+
+pwd: poDteCnOUp0EH1bL

@@ -1,6 +1,7 @@
 "use client";
 
 import { Header } from "@/components/layout";
+import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 import diaryIcon from "@/assets/images/icon/icon_diary.svg";
 import diaryWriteIcon from "@/assets/images/icon/icon_diary_write.svg";
@@ -8,6 +9,7 @@ import bottle from "@/assets/images/sub/main_bottle.png";
 import diaryQuestion from "@/assets/images/sub/diary_type_question.png";
 import diaryFree from "@/assets/images/sub/diary_type_free.png";
 import { useEffect, useRef, useState } from "react";
+import type { User } from "@supabase/supabase-js";
 type Star = {
 	id: number;
 	x: number;
@@ -63,7 +65,17 @@ const getStarPosition = (index: number, areaWidth: number) => {
 export default function Home() {
   const [stars, setStars] = useState<Star[]>([]);
   const [openDiaryType, setOpenDiaryType] = useState<boolean>(false);
+	const [user, setUser] = useState<User | null>(null);
 	const starAreaRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		const supabase = createClient();
+
+		supabase.auth.getUser().then(({ data: { user } }) => {
+			setUser(user);
+		});
+	}, []);
+
 
   useEffect(() => {
 		if (!starAreaRef.current) return;
