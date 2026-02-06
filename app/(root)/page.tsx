@@ -20,7 +20,7 @@ type Star = {
 
 type Diary = {
 	id: number;
-	mood: "happy" | "love" | "sad" | "angry" | "unrest" | "tired"
+	mood: "happy" | "love" | "sad" | "angry" | "unrest" | "tired";
 };
 
 const diaries: Diary[] = [
@@ -61,10 +61,9 @@ const getStarPosition = (index: number, areaWidth: number) => {
 	};
 };
 
-
 export default function Home() {
-  const [stars, setStars] = useState<Star[]>([]);
-  const [openDiaryType, setOpenDiaryType] = useState<boolean>(false);
+	const [stars, setStars] = useState<Star[]>([]);
+	const [openDiaryType, setOpenDiaryType] = useState<boolean>(false);
 	const [user, setUser] = useState<User | null>(null);
 	const starAreaRef = useRef<HTMLDivElement>(null);
 
@@ -76,8 +75,7 @@ export default function Home() {
 		});
 	}, []);
 
-
-  useEffect(() => {
+	useEffect(() => {
 		if (!starAreaRef.current) return;
 
 		const areaWidth = starAreaRef.current.clientWidth;
@@ -97,8 +95,7 @@ export default function Home() {
 		setStars(initialStars);
 	}, []);
 
-
-  return (
+	return (
 		<div className="w-full min-h-dvh">
 			<Header type="default"></Header>
 			<div className="container">

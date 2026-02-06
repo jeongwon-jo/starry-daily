@@ -22,10 +22,11 @@ export async function middleware(request: NextRequest) {
 
 	const pathname = request.nextUrl.pathname;
 
+	const isPublicRoot = pathname === "/";
 	const isAuthPage =
 		pathname.startsWith("/login") || pathname.startsWith("/signup");
 
-	if (!user && !isAuthPage) {
+	if (!user && !isAuthPage && !isPublicRoot) {
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
 

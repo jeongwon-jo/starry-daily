@@ -10,12 +10,10 @@ export default function SignupAgreePage() {
   const router = useRouter();
   const [agree1, setAgree1] = useState(false);
   const [agree2, setAgree2] = useState(false);
-  const [agree3, setAgree3] = useState(false);
 
   const handleAgreeAllChange = useCallback((checked: boolean) => {
     setAgree1(checked);
     setAgree2(checked);
-    setAgree3(checked);
   }, []);
 
   const agreeAll = agree1 && agree2;
@@ -88,24 +86,7 @@ export default function SignupAgreePage() {
 										onChange={(e) => setAgree2(e.target.checked)}
 									/>{" "}
 									<em></em> <span className="text-primary-100">[필수]</span>
-									&nbsp; 서비스 이용약관
-								</label>
-							</div>
-							<Link
-								href={"/setting/term"}
-								className="size-4 inline-block bg-[url('../assets/images/icon/icon_link_arrow.svg')] bg-no-repeat bg-center"
-							></Link>
-						</div>
-						<div className="flex items-center justify-between mt-6">
-							<div className="checkbox">
-								<label htmlFor="agree3">
-									<input
-										type="checkbox"
-										id="agree3"
-										checked={agree3}
-										onChange={(e) => setAgree3(e.target.checked)}
-									/>{" "}
-									<em></em> [선택] 서비스 이용약관
+									&nbsp; 개인정보처리방침
 								</label>
 							</div>
 							<Link
