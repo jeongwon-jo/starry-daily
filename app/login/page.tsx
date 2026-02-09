@@ -1,8 +1,27 @@
+"use client";
+
 import { Button } from "@/components/ui";
 import Link from "next/link";
 import StarryBottle from "@/assets/images/sub/starry_bottle.png";
+import { createClient } from "@/utils/supabase/client";
 
 export default function LoginPage() {
+	const supabase = createClient();
+
+	const loginWithKakao = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+			provider: "kakao",
+			options: {
+				redirectTo: `${location.origin}/auth/callback`,
+				scopes: "profile_nickname profile_image",
+			},
+		});
+
+    if (error) {
+      console.error("Kakao login error:", error.message);
+    }
+	};
+	
 	return (
 		<div className="w-full h-dvh">
 			<div className="px-5 py-10 w-full h-full">
@@ -21,6 +40,7 @@ export default function LoginPage() {
 							size="md"
 							full
 							className="bg-[#FAE100]!"
+							onClick={loginWithKakao}
 						>
 							<span className="relative pl-7 text-[#471E67] [&:after]:content-[''] [&:after]:size-6 [&:after]:absolute [&:after]:left-0 [&:after]:top-1/2 [&:after]:-translate-y-1/2 [&:after]:bg-[url('../assets/images/icon/icon_kakao.svg')] [&:after]:bg-no-repeat [&:after]:bg-center">
 								카카오톡으로 시작하기
