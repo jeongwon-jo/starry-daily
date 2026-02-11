@@ -8,6 +8,7 @@ import settingIcon4 from "@/assets/images/icon/icon_setting_04.svg";
 import settingIcon5 from "@/assets/images/icon/icon_setting_05.svg";
 import settingIcon6 from "@/assets/images/icon/icon_setting_06.svg";
 import settingIcon7 from "@/assets/images/icon/icon_setting_07.svg";
+import settingIcon8 from "@/assets/images/icon/icon_setting_08.svg";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -111,7 +112,7 @@ export default function SettingPage() {
 							</div>
 						</Link>
 					</div>
-					<div className="py-5 px-4">
+					<div className="py-5 px-4 border-b-2 border-b-[rgb(255,255,255,0.04)]">
 						<div className="flex justify-between items-center px-2 mb-6">
 							<div className="flex items-center gap-2">
 								<div className="size-6">
@@ -128,7 +129,7 @@ export default function SettingPage() {
 								/>
 							</div>
 						</div>
-						<div className="flex justify-between items-center px-2 mb-6">
+						<div className="flex justify-between items-center px-2">
 							<div className="flex items-center gap-2">
 								<div className="size-6">
 									<img src={settingIcon7.src} alt="탈퇴하기" />
@@ -137,6 +138,8 @@ export default function SettingPage() {
 							</div>
 							<div className="size-4 shrink-0 bg-[url('../assets/images/icon/icon_setting_link.svg')] bg-no-repeat bg-contain"></div>
 						</div>
+					</div>
+					<div className="py-5 px-4">
 						<button
 							type="button"
 							className="flex justify-between items-center px-2 w-full text-left"
@@ -144,7 +147,7 @@ export default function SettingPage() {
 						>
 							<div className="flex items-center gap-2">
 								<div className="size-6">
-									<img src={settingIcon7.src} alt="로그아웃" />
+									<img src={settingIcon8.src} alt="로그아웃" />
 								</div>
 								<p className="text-primary-100">로그아웃</p>
 							</div>

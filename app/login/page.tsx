@@ -21,6 +21,19 @@ export default function LoginPage() {
       console.error("Kakao login error:", error.message);
     }
 	};
+
+	const loginWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+
+    if (error) {
+      console.error("Google login error:", error.message);
+    }
+  };
 	
 	return (
 		<div className="w-full h-dvh">
@@ -53,7 +66,13 @@ export default function LoginPage() {
 								</span>
 							</Button>
 						</Link>
-						<Button type="button" variant="primary700" size="md" full>
+						<Button
+							type="button"
+							variant="primary700"
+							size="md"
+							full
+							onClick={loginWithGoogle}
+						>
 							<span className="relative pl-7 text-primary-100 [&:after]:content-[''] [&:after]:size-6 [&:after]:absolute [&:after]:left-0 [&:after]:top-1/2 [&:after]:-translate-y-1/2 [&:after]:bg-[url('../assets/images/icon/icon_google.svg')] [&:after]:bg-no-repeat [&:after]:bg-center">
 								Google로 시작하기
 							</span>
