@@ -7,6 +7,7 @@ import star2 from "@/assets/images/sub/fold_complete_star_02.svg";
 import star3 from "@/assets/images/sub/fold_complete_star_03.svg";
 import star4 from "@/assets/images/sub/fold_complete_star_04.svg";
 import star5 from "@/assets/images/sub/fold_complete_star_05.svg";
+import { useRouter } from "next/navigation";
 
 const COMPLETE_STARS = [
 	{ src: star1, left: "127%", top: "20%", width: 26, height: 26 },
@@ -51,21 +52,27 @@ const STEPS = [
 
 
 export default function DiaryWriteCompletePage() {
+	const router = useRouter();
 	const [step, setStep] = useState(0);
 	const [phase, setPhase] = useState<"fold" | "show">("fold");
 	const current = STEPS[step];
 	const [prevStep, setPrevStep] = useState<number>(0);
 
 	useEffect(() => {
-		if (step >= STEPS.length - 1) return;
-
 		const timer = setTimeout(() => {
-			setPrevStep(step); // 이전 이미지 유지
+			if (step >= STEPS.length - 1) {
+				clearTimeout(timer);
+				router.replace("/");
+				return;
+			}
+			setPrevStep(step);
 			setStep(step + 1);
+
 		}, 2000);
 
+		
 		return () => clearTimeout(timer);
-	}, [step]);
+	}, [router, step]);
 
 	
 	return (
@@ -78,7 +85,7 @@ export default function DiaryWriteCompletePage() {
 							key={step}
 							className="text-xl text-center text-primary-100 h-14 animate-textFade"
 						>
-							{current.text}
+							{current.text ?? ""}
 						</p>
 						<div className="w-full flex justify-center h-80">
 							<div className="flex jutify-center h-full">

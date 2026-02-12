@@ -167,7 +167,7 @@ export default function Home() {
 						</h3>
 						<div className="mt-6">
 							<Link
-								href={"/diary/write"}
+								href={{ pathname: "/diary/write", query: { type: "question" } }}
 								className="block bg-primary-600 rounded-xl p-3 mb-3"
 							>
 								<div className="flex items-center justify-between">
@@ -184,7 +184,7 @@ export default function Home() {
 								</div>
 							</Link>
 							<Link
-								href={"/diary/write"}
+								href={{ pathname: "/diary/write", query: { type: "diary" } }}
 								className="block bg-primary-600 rounded-xl p-3"
 							>
 								<div className="flex items-center justify-between">
