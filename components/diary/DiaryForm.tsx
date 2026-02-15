@@ -25,7 +25,6 @@ export default function DiaryForm({
   const [mood, setMood] = useState<string | null>(null);
   const [openModal, setOpenModal] = useState(false);
   const [message, setMessage] = useState("");
-  const [openSuccessSaveModal, setOpenSuccessSaveModal] = useState(false);
 
 	const handleSave = async () => {
     if (!content) {
@@ -64,8 +63,7 @@ export default function DiaryForm({
       setOpenModal(true);
       setMessage(error.message);
     } else {
-      setOpenSuccessSaveModal(true);
-      setMessage("저장되었습니다.");
+      router.replace("/diary/write/complete");
     }
   };
 
@@ -211,11 +209,6 @@ export default function DiaryForm({
 					message={message || ""}
 					onClose={() => setOpenModal(false)}
 				/>
-				<MessageModal
-					open={openSuccessSaveModal}
-					message={message || ""}
-					onClose={() => {router.replace("/diary/write/complete");}}
-      />
     </>
 	);
 }
