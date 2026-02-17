@@ -21,6 +21,9 @@ export async function GET(request: Request) {
     );
   }
 
+  console.log("FULL URL:", request.url);
+  console.log("CODE:", code);
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
