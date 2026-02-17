@@ -45,7 +45,7 @@ export default function UnlockPage() {
 
   return (
     <div className="w-full min-h-dvh bg-[url('../assets/images/sub/lock_bg.png')] bg-no-repeat bg-position-[left_bottom] bg-size-[100%_50dvh]">
-      <Header type="navigation" title="비밀번호 입력" isSetting />
+      <Header type="navigation" title="비밀번호 입력" />
       <div className="container h-dvh relative">
         <div className="mt-30">
           <p className="text-lg text-primary-100 text-center">
