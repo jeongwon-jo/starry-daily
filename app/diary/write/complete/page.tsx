@@ -60,6 +60,13 @@ export default function DiaryWriteCompletePage() {
 	const [prevStep, setPrevStep] = useState<number>(0);
 
 	useEffect(() => {
+		STEPS.forEach(step => {
+			const img = new window.Image();
+			img.src = step.image;
+		});
+	}, []);
+
+	useEffect(() => {
 		const timer = setTimeout(() => {
 			if (step >= STEPS.length - 1) {
 				clearTimeout(timer);
@@ -161,22 +168,9 @@ export default function DiaryWriteCompletePage() {
 														"--to-rotate": `${current.rotate}deg`,
 													} as React.CSSProperties
 												}/>
-											// <img
-											// 	key={`prev-${step}`}
-											// 	src={STEPS[prevStep].image}
-											// 	alt=""
-											// 	className="absolute object-contain animate-fadeOutSlow"
-											// 	width={STEPS[prevStep].width}
-											// 	style={
-											// 		{
-											// 			"--from-rotate": `${STEPS[prevStep].rotate}deg`,
-											// 			"--to-rotate": `${current.rotate}deg`,
-											// 		} as React.CSSProperties
-											// 	}
-											// />
 										)}
 
-											<Image key={`current-${step}`}
+											<Image key={`current`}
 											src={current.image}
 											alt=""
 											className="absolute object-contain animate-fadeInSlow"
@@ -188,19 +182,6 @@ export default function DiaryWriteCompletePage() {
 													"--to-rotate": `${current.rotate}deg`,
 												} as React.CSSProperties
 											}/>
-										{/* <img
-											key={`current-${step}`}
-											src={current.image}
-											alt=""
-											className="absolute object-contain animate-fadeInSlow"
-											width={current.width}
-											style={
-												{
-													"--from-rotate": `${STEPS[prevStep].rotate}deg`,
-													"--to-rotate": `${current.rotate}deg`,
-												} as React.CSSProperties
-											}
-										/> */}
 									</div>
 								)}
 							</div>
