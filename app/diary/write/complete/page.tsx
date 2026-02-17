@@ -104,6 +104,7 @@ export default function DiaryWriteCompletePage() {
 												alt=""
 												width={124}
 												height={150}
+												priority
 												className="animate-paperFold -rotate-[35deg]"
 												onAnimationEnd={() => setPhase("show")} />
 										)}
@@ -113,6 +114,7 @@ export default function DiaryWriteCompletePage() {
 												alt=""
 												width={124}
 												height={150}
+												priority
 												className="animate-imageReveal" />
 										)}
 									</div>
@@ -148,6 +150,7 @@ export default function DiaryWriteCompletePage() {
 																alt=""
 																width={124}
 																height={150}
+																priority
 																className="w-full h-full object-contain" />
 
 														</span>
@@ -162,6 +165,7 @@ export default function DiaryWriteCompletePage() {
 												className="absolute object-contain animate-fadeOutSlow"
 												width={STEPS[prevStep].width}
 												height={150}
+												priority
 												style={
 													{
 														"--from-rotate": `${STEPS[prevStep].rotate}deg`,
@@ -176,6 +180,7 @@ export default function DiaryWriteCompletePage() {
 											className="absolute object-contain animate-fadeInSlow"
 											width={current.width}
 											height={150}
+											priority
 											style={
 												{
 													"--from-rotate": `${STEPS[prevStep].rotate}deg`,
