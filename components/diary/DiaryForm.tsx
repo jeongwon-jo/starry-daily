@@ -10,62 +10,103 @@ import sadMood from "@/assets/images/sub/star_sad_face.svg";
 import angryMood from "@/assets/images/sub/star_angry_face.svg";
 import unrestMood from "@/assets/images/sub/star_unrest_face.svg";
 import tiredMood from "@/assets/images/sub/star_tired_face.svg";
+import { Diary } from "@/app/diary/page";
 
 export default function DiaryForm({
 	type,
+	diary,
 	randomQuestion,
 }: {
 	type: string | undefined;
+	diary?: Diary;
 	randomQuestion: string | null;
 }) {
 	const supabase = createClient();
   const router = useRouter();
 
-	const [content, setContent] = useState("");
-  const [mood, setMood] = useState<string | null>(null);
+	const [content, setContent] = useState(diary?.content ?? "");
+  const [mood, setMood] = useState<string | null>(diary?.mood ?? null);
   const [openModal, setOpenModal] = useState(false);
   const [message, setMessage] = useState("");
+	
+	function formatKoreanDate(dateString: string) {
+		const date = new Date(dateString);
+
+		const day = date.getDate(); // 11
+		const weekday = date.toLocaleDateString("ko-KR", {
+			weekday: "long",
+		}); // 일요일
+
+		return `${day}일 ${weekday}`;
+	}
+
+	const baseDate = diary
+  ? diary.created_at
+  : new Date().toISOString();
+	const displayDate = formatKoreanDate(baseDate);
 
 	const handleSave = async () => {
-    if (!content) {
-      setOpenModal(true)
-      setMessage("내용을 입력해주세요");
-      return;
-    }
+		if (!content) {
+			setOpenModal(true);
+			setMessage("내용을 입력해주세요");
+			return;
+		}
 
-    if (!mood) {
-      setOpenModal(true);
-      setMessage("기분을 선택해주세요");
-      return;
-    }
+		if (!mood) {
+			setOpenModal(true);
+			setMessage("기분을 선택해주세요");
+			return;
+		}
 
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+		const {
+			data: { user },
+		} = await supabase.auth.getUser();
 
-    if (!user) {
-      setOpenModal(true);
-      setMessage("로그인이 필요합니다");
-      return;
-    }
+		if (!user) {
+			setOpenModal(true);
+			setMessage("로그인이 필요합니다");
+			return;
+		}
 
-    const { error } = await supabase.from("diary").insert([
-      {
-        question: type === "question" ? randomQuestion : null,
-        content,
-        date: new Date().toISOString().split("T")[0],
-        mood,
-        user_id: user.id,
-      },
-    ]);
+		let error;
 
-    if (error) {
-      setOpenModal(true);
-      setMessage(error.message);
-    } else {
-      router.replace("/diary/write/complete");
-    }
-  };
+		if (diary) {
+			const { error: updateError } = await supabase
+				.from("diary")
+				.update({
+					content,
+					mood,
+					question: type === "question" ? randomQuestion : null,
+				})
+				.eq("id", diary.id)
+				.eq("user_id", user.id)
+
+			error = updateError;
+		} 
+		else {
+			const { error: insertError } = await supabase
+				.from("diary")
+				.insert([
+					{
+						question: type === "question" ? randomQuestion : null,
+						content,
+						date: new Date().toISOString().split("T")[0],
+						mood,
+						user_id: user.id,
+					},
+				]);
+
+			error = insertError;
+		}
+
+		if (error) {
+			setOpenModal(true);
+			setMessage(error.message);
+		} else {
+			router.replace("/diary/write/complete");
+		}
+	};
+
 
 	return (
     <>
@@ -76,7 +117,7 @@ export default function DiaryForm({
 						</div>
 					)}
 					<div className="mt-6">
-						<span className="text-primary-300">11일 일요일</span>
+						<span className="text-primary-300">{displayDate}</span>
 						<div className="mt-2 bg-[rgb(255,255,255,0.04)] p-3 rounded-xl">
 							<textarea
 								className="
@@ -106,6 +147,7 @@ export default function DiaryForm({
 											id="mood_happy"
 											name="radio_mood"
 											value="happy"
+											checked={mood === "happy"}
 											onChange={(e) => setMood(e.target.value)}
 										/>
 										<em>
@@ -121,6 +163,7 @@ export default function DiaryForm({
 											id="mood_love"
 											name="radio_mood"
 											value="love"
+											checked={mood === "love"}
 											onChange={(e) => setMood(e.target.value)}
 										/>
 										<em>
@@ -136,6 +179,7 @@ export default function DiaryForm({
 											id="mood_sad"
 											name="radio_mood"
 											value="sad"
+											checked={mood === "sad"}
 											onChange={(e) => setMood(e.target.value)}
 										/>
 										<em>
@@ -166,6 +210,7 @@ export default function DiaryForm({
 											id="mood_unrest"
 											name="radio_mood"
 											value="unrest"
+											checked={mood === "unrest"}
 											onChange={(e) => setMood(e.target.value)}
 										/>
 										<em>
@@ -181,6 +226,7 @@ export default function DiaryForm({
 											id="mood_tired"
 											name="radio_mood"
 											value="tired"
+											checked={mood === "tired"}
 											onChange={(e) => setMood(e.target.value)}
 										/>
 										<em>
