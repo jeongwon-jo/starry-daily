@@ -8,6 +8,7 @@ import star3 from "@/assets/images/sub/fold_complete_star_03.svg";
 import star4 from "@/assets/images/sub/fold_complete_star_04.svg";
 import star5 from "@/assets/images/sub/fold_complete_star_05.svg";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const COMPLETE_STARS = [
 	{ src: star1, left: "87%", top: "20%", width: 26, height: 26 },
@@ -53,7 +54,7 @@ const STEPS = [
 
 export default function DiaryWriteCompletePage() {
 	const router = useRouter();
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(1);
 	const [phase, setPhase] = useState<"fold" | "show">("fold");
 	const current = STEPS[step];
 	const [prevStep, setPrevStep] = useState<number>(0);
@@ -92,20 +93,20 @@ export default function DiaryWriteCompletePage() {
 								{step == 2 ? (
 									<div className="relative w-[124px] h-full flex items-center">
 										{phase === "fold" && (
-											<img
-												src="/images/diary_complete_02.png"
+											<Image src="/images/diary_complete_02.png"
 												alt=""
+												width={124}
+												height={150}
 												className="animate-paperFold -rotate-[35deg]"
-												onAnimationEnd={() => setPhase("show")}
-											/>
+												onAnimationEnd={() => setPhase("show")} />
 										)}
 
 										{phase === "show" && (
-											<img
-												src="/images/diary_complete_03.png"
+											<Image src="/images/diary_complete_03.png"
 												alt=""
-												className="animate-imageReveal"
-											/>
+												width={124}
+												height={150}
+												className="animate-imageReveal" />
 										)}
 									</div>
 								) : (
@@ -136,33 +137,58 @@ export default function DiaryWriteCompletePage() {
 																"--star-delay": `${i * 0.22}s`,
 															} as React.CSSProperties}
 														>
-															<img
-																src={star.src.src}
+															<Image src={star.src.src}
 																alt=""
-																className="w-full h-full object-contain"
-															/>
+																width={124}
+																height={150}
+																className="w-full h-full object-contain" />
+
 														</span>
 													))}
 												</div>
 											</>
 										)}
 										{prevStep !== null && (
-											<img
-												key={`prev-${step}`}
+											<Image key={`prev-${step}`}
 												src={STEPS[prevStep].image}
 												alt=""
 												className="absolute object-contain animate-fadeOutSlow"
 												width={STEPS[prevStep].width}
+												height={150}
 												style={
 													{
 														"--from-rotate": `${STEPS[prevStep].rotate}deg`,
 														"--to-rotate": `${current.rotate}deg`,
 													} as React.CSSProperties
-												}
-											/>
+												}/>
+											// <img
+											// 	key={`prev-${step}`}
+											// 	src={STEPS[prevStep].image}
+											// 	alt=""
+											// 	className="absolute object-contain animate-fadeOutSlow"
+											// 	width={STEPS[prevStep].width}
+											// 	style={
+											// 		{
+											// 			"--from-rotate": `${STEPS[prevStep].rotate}deg`,
+											// 			"--to-rotate": `${current.rotate}deg`,
+											// 		} as React.CSSProperties
+											// 	}
+											// />
 										)}
 
-										<img
+											<Image key={`current-${step}`}
+											src={current.image}
+											alt=""
+											className="absolute object-contain animate-fadeInSlow"
+											width={current.width}
+											height={150}
+											style={
+												{
+													"--from-rotate": `${STEPS[prevStep].rotate}deg`,
+													"--to-rotate": `${current.rotate}deg`,
+												} as React.CSSProperties
+											}/>
+										{/* <img
 											key={`current-${step}`}
 											src={current.image}
 											alt=""
@@ -174,7 +200,7 @@ export default function DiaryWriteCompletePage() {
 													"--to-rotate": `${current.rotate}deg`,
 												} as React.CSSProperties
 											}
-										/>
+										/> */}
 									</div>
 								)}
 							</div>
