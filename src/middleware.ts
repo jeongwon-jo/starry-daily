@@ -26,6 +26,10 @@ export async function middleware(request: NextRequest) {
 	const isAuthPage =
 		pathname.startsWith("/login") || pathname.startsWith("/signup");
 
+	if (pathname.startsWith("/auth/callback")) {
+    return NextResponse.next();
+  }
+
 	if (!user && !isAuthPage && !isPublicRoot) {
 		return NextResponse.redirect(new URL("/login", request.url));
 	}

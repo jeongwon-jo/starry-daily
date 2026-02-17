@@ -13,32 +13,27 @@ export async function GET(request: Request) {
 
   const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.exchangeCodeForSession(code);
+  const { error } = await supabase.auth.exchangeCodeForSession(code);
 
-  return NextResponse.json({
-    error,
-    session: data?.session,
-  });
-  
-  // const {
-  //   data: { user },
-  // } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  // if (!user) {
-  //   return NextResponse.redirect(
-  //     new URL("/login", request.url)
-  //   );
-  // }
+  if (!user) {
+    return NextResponse.redirect(
+      new URL("/login", request.url)
+    );
+  }
 
-  // const nickname = user.user_metadata?.nickname;
+  const nickname = user.user_metadata?.nickname;
 
-  // if (!nickname) {
-  //   return NextResponse.redirect(
-  //     new URL("/signup/step2", request.url)
-  //   );
-  // }
+  if (!nickname) {
+    return NextResponse.redirect(
+      new URL("/signup/step2", request.url)
+    );
+  }
 
-  // return NextResponse.redirect(
-  //   new URL("/", request.url)
-  // );
+  return NextResponse.redirect(
+    new URL("/", request.url)
+  );
 }
