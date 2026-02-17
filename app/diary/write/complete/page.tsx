@@ -53,26 +53,26 @@ const STEPS = [
 
 export default function DiaryWriteCompletePage() {
 	const router = useRouter();
-	const [step, setStep] = useState(4);
+	const [step, setStep] = useState(0);
 	const [phase, setPhase] = useState<"fold" | "show">("fold");
 	const current = STEPS[step];
 	const [prevStep, setPrevStep] = useState<number>(0);
 
-	// useEffect(() => {
-	// 	const timer = setTimeout(() => {
-	// 		if (step >= STEPS.length - 1) {
-	// 			clearTimeout(timer);
-	// 			router.replace("/");
-	// 			return;
-	// 		}
-	// 		setPrevStep(step);
-	// 		setStep(step + 1);
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			if (step >= STEPS.length - 1) {
+				clearTimeout(timer);
+				router.replace("/");
+				return;
+			}
+			setPrevStep(step);
+			setStep(step + 1);
 
-	// 	}, 2000);
+		}, 2000);
 
 		
-	// 	return () => clearTimeout(timer);
-	// }, [router, step]);
+		return () => clearTimeout(timer);
+	}, [router, step]);
 
 	
 	return (
