@@ -10,10 +10,10 @@ import star5 from "@/assets/images/sub/fold_complete_star_05.svg";
 import { useRouter } from "next/navigation";
 
 const COMPLETE_STARS = [
-	{ src: star1, left: "127%", top: "20%", width: 26, height: 26 },
-	{ src: star3, left: "-57%%", top: "79%", width: 26, height: 26 },
-	{ src: star2, left: "167%", top: "17%", width: 20, height: 20 },
-	{ src: star4, left: "-34%", top: "94%", width: 20, height: 20 },
+	{ src: star1, left: "87%", top: "20%", width: 26, height: 26 },
+	{ src: star3, left: "15%", top: "79%", width: 26, height: 26 },
+	{ src: star2, left: "108%", top: "17%", width: 20, height: 20 },
+	{ src: star4, left: "-2%", top: "94%", width: 20, height: 20 },
 	{ src: star5, left: "38%", top: "86%", width: 16, height: 16 },
 ];
 
@@ -53,26 +53,26 @@ const STEPS = [
 
 export default function DiaryWriteCompletePage() {
 	const router = useRouter();
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(4);
 	const [phase, setPhase] = useState<"fold" | "show">("fold");
 	const current = STEPS[step];
 	const [prevStep, setPrevStep] = useState<number>(0);
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			if (step >= STEPS.length - 1) {
-				clearTimeout(timer);
-				router.replace("/");
-				return;
-			}
-			setPrevStep(step);
-			setStep(step + 1);
+	// useEffect(() => {
+	// 	const timer = setTimeout(() => {
+	// 		if (step >= STEPS.length - 1) {
+	// 			clearTimeout(timer);
+	// 			router.replace("/");
+	// 			return;
+	// 		}
+	// 		setPrevStep(step);
+	// 		setStep(step + 1);
 
-		}, 2000);
+	// 	}, 2000);
 
 		
-		return () => clearTimeout(timer);
-	}, [router, step]);
+	// 	return () => clearTimeout(timer);
+	// }, [router, step]);
 
 	
 	return (
@@ -90,7 +90,7 @@ export default function DiaryWriteCompletePage() {
 						<div className="w-full flex justify-center h-80">
 							<div className="flex jutify-center h-full">
 								{step == 2 ? (
-									<div className="relative w-[111px] h-full flex items-center">
+									<div className="relative w-[124px] h-full flex items-center">
 										{phase === "fold" && (
 											<img
 												src="/images/diary_complete_02.png"
