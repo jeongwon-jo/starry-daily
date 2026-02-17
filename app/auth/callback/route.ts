@@ -18,9 +18,9 @@ export async function GET(request: Request) {
 
   if (error) {
     alert(error)
-    return NextResponse.redirect(
-      new URL("/login", request.url)
-    );
+    // return NextResponse.redirect(
+    //   new URL("/login", request.url)
+    // );
   }
   
   const {
@@ -29,12 +29,12 @@ export async function GET(request: Request) {
 
   if (!user) {
     alert("user 없음")
-    return NextResponse.redirect(
-      new URL("/login", request.url)
-    );
+    // return NextResponse.redirect(
+    //   new URL("/login", request.url)
+    // );
   }
 
-  const nickname = user.user_metadata?.nickname;
+  const nickname = user?.user_metadata?.nickname;
 
   if (!nickname) {
     alert("nickname 없음")
