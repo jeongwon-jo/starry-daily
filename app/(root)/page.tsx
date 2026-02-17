@@ -173,7 +173,7 @@ export default function Home() {
 						<p className="text-lg text-primary-100 text-center mb-6">
 							“오늘 하루는 어땠어?”
 						</p>
-						<div className="relative w-[80%] max-w-[300px] m-auto">
+						<div className="relative w-[70%] max-w-[300px] m-auto">
 							<img src={theme == "dark" ? bottle.src : bottleLight.src} alt="" />
 							<div
 								ref={starAreaRef}
