@@ -53,26 +53,26 @@ const STEPS = [
 
 export default function DiaryWriteCompletePage() {
 	const router = useRouter();
-	const [step, setStep] = useState(0);
+	const [step, setStep] = useState(4);
 	const [phase, setPhase] = useState<"fold" | "show">("fold");
 	const current = STEPS[step];
 	const [prevStep, setPrevStep] = useState<number>(0);
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			if (step >= STEPS.length - 1) {
-				clearTimeout(timer);
-				router.replace("/");
-				return;
-			}
-			setPrevStep(step);
-			setStep(step + 1);
+	// useEffect(() => {
+	// 	const timer = setTimeout(() => {
+	// 		if (step >= STEPS.length - 1) {
+	// 			clearTimeout(timer);
+	// 			router.replace("/");
+	// 			return;
+	// 		}
+	// 		setPrevStep(step);
+	// 		setStep(step + 1);
 
-		}, 2000);
+	// 	}, 2000);
 
 		
-		return () => clearTimeout(timer);
-	}, [router, step]);
+	// 	return () => clearTimeout(timer);
+	// }, [router, step]);
 
 	
 	return (
@@ -117,12 +117,11 @@ export default function DiaryWriteCompletePage() {
 													absolute inset-1/2 -translate-x-1/2 -translate-y-1/2
 													w-[264px] h-[264px]
 													rounded-full
-													bg-[#fff]/30
-													blur-[80px]
-													overflow-hidden
 													animate-fadeInSlow
 												"
-												/>
+												>
+													<div className="w-full h-full bg-white/30 blur-[80px]" />
+												</div>
 												<div className="absolute inset-0 pointer-events-none">
 													{COMPLETE_STARS.map((star, i) => (
 														<span
