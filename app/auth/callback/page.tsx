@@ -28,6 +28,8 @@ export default function AuthCallbackPage() {
 
         if (!nickname) {
           redirect("/signup/step2");
+        } else {
+          redirect("/");
         }
       } 
     };

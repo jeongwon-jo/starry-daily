@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from "react";
 import type { User } from "@supabase/supabase-js";
 import { MessageModal } from "@/components/ui";
 import { useTheme } from "@/providers/ThemeProvider";
+import { redirect, useRouter } from "next/navigation";
 type Star = {
 	id: number;
 	x: number;
@@ -50,6 +51,7 @@ const getStarPosition = (index: number, areaWidth: number) => {
 
 export default function Home() {
 	const {theme} = useTheme()
+	const router = useRouter();
 	const supabase = createClient();
 	const [stars, setStars] = useState<Star[]>([]);
 	const [openDiaryType, setOpenDiaryType] = useState<boolean>(false);

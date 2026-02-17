@@ -4,9 +4,22 @@ import { Button } from "@/components/ui";
 import Link from "next/link";
 import StarryBottle from "@/assets/images/sub/starry_bottle.png";
 import { createClient } from "@/utils/supabase/client";
+import { useTheme } from "@/providers/ThemeProvider";
+import { useEffect } from "react";
 
 export default function LoginPage() {
 	const supabase = createClient();
+
+	const applyTheme = (isDark: boolean) => {
+    const html = document.documentElement;
+    isDark
+      ? html.classList.add("dark")
+      : html.classList.remove("dark");
+  };
+	
+	useEffect(() => {
+		applyTheme(true);
+	})
 
 	const loginWithKakao = async () => {
     const { error } = await supabase.auth.signInWithOAuth({

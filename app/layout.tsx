@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
+import LockGuard from "@/providers/LockGuard";
 
 const SchoolSafeOuting = localFont({
 	src: [
@@ -33,9 +34,11 @@ export default function RootLayout({
   return (
 		<html lang="ko" className="dark">
 			<body className={SchoolSafeOuting.variable}>
-				<ThemeProvider initialTheme="dark">
-					<div className="wrap">{children}</div>
-				</ThemeProvider>
+				<LockGuard>
+					<ThemeProvider initialTheme="dark">
+						<div className="wrap">{children}</div>
+					</ThemeProvider>
+				</LockGuard>
 			</body>
 		</html>
 	);

@@ -40,6 +40,8 @@ export default function SettingPage() {
 
 			setUser(user)
       if (!user) return;
+			
+			setLockMode(user?.user_metadata?.entry_pwd_at)
 
       const storedDarkMode = user.user_metadata?.dark_mode;
 
@@ -66,10 +68,28 @@ export default function SettingPage() {
     });
   };
 
+	const handleLockToggle = async () => {
+		if (!lockMode) {
+			// ON 할 때 → lock 페이지 이동
+			router.push("/lock");
+		} else {
+			// OFF 할 때 → 비밀번호 제거
+			await supabase.auth.updateUser({
+				data: {
+					entry_pwd_at: false,
+					entry_pwd: null,
+				},
+			});
+
+			setLockMode(false);
+		}
+	};
+
 	const handleLogout = async () => {
 		await supabase.auth.signOut();
 		router.refresh();
 		router.replace("/login");
+		localStorage.removeItem("unlocked");
 	};
 
 	const handleDeleteAccount = async () => {
@@ -181,9 +201,7 @@ export default function SettingPage() {
 							<div>
 								<ToggleSwitch
 									checked={lockMode}
-									onChange={() => {
-										setLockMode(!lockMode);
-									}}
+									onChange={handleLockToggle}
 								/>
 							</div>
 						</div>
