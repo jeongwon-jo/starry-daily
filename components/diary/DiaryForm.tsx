@@ -11,6 +11,7 @@ import angryMood from "@/assets/images/sub/star_angry_face.svg";
 import unrestMood from "@/assets/images/sub/star_unrest_face.svg";
 import tiredMood from "@/assets/images/sub/star_tired_face.svg";
 import { Diary } from "@/app/diary/page";
+import Image from "next/image";
 
 export default function DiaryForm({
 	type,
@@ -152,7 +153,7 @@ export default function DiaryForm({
 										/>
 										<em>
 											<span>기쁨</span>
-											<img src={happyMood.src} alt="" />
+											<Image src={happyMood} alt="star" width={28} height={28}/>
 										</em>
 									</label>
 								</div>
@@ -168,7 +169,7 @@ export default function DiaryForm({
 										/>
 										<em>
 											<span>설렘</span>
-											<img src={loveMood.src} alt="" />
+											<Image src={loveMood} alt="star" width={28} height={28}/>
 										</em>
 									</label>
 								</div>
@@ -184,7 +185,7 @@ export default function DiaryForm({
 										/>
 										<em>
 											<span>슬픔</span>
-											<img src={sadMood.src} alt="" />
+											<Image src={sadMood} alt="star" width={28} height={28}/>
 										</em>
 									</label>
 								</div>
@@ -199,7 +200,7 @@ export default function DiaryForm({
 										/>
 										<em>
 											<span>화남</span>
-											<img src={angryMood.src} alt="" />
+											<Image src={angryMood} alt="star" width={28} height={28}/>
 										</em>
 									</label>
 								</div>
@@ -215,7 +216,7 @@ export default function DiaryForm({
 										/>
 										<em>
 											<span>불안</span>
-											<img src={unrestMood.src} alt="" />
+											<Image src={unrestMood} alt="star" width={28} height={28}/>
 										</em>
 									</label>
 								</div>
@@ -231,7 +232,7 @@ export default function DiaryForm({
 										/>
 										<em>
 											<span>피곤</span>
-											<img src={tiredMood.src} alt="" />
+											<Image src={tiredMood} alt="star" width={28} height={28}/>
 										</em>
 									</label>
 								</div>

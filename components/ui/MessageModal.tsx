@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { Button } from "./Button";
 import StarImg from "@/assets/images/sub/message_star.png";
+import Image from "next/image";
 
 interface ModalProps {
 	open: boolean;
@@ -30,7 +31,7 @@ export const MessageModal = ({ open, message, subMessage,  onClose }: ModalProps
 			<div className="bg-gray-50 rounded-xl p-3 absolute left-1/2 top-1/2 -translate-1/2">
 				<div className="w-75">
 					<div className="flex justify-center">
-						<img src={StarImg.src} alt="star" className="w-10 h-10" />
+						<Image src={StarImg} alt="star" width={40} height={40}/>
 					</div>
 
 					<p className="text-gray-700 text-center text-base mt-4 whitespace-pre-line">{message}</p>

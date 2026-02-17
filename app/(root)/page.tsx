@@ -14,6 +14,8 @@ import type { User } from "@supabase/supabase-js";
 import { MessageModal } from "@/components/ui";
 import { useTheme } from "@/providers/ThemeProvider";
 import { redirect, useRouter } from "next/navigation";
+import Image from "next/image";
+
 type Star = {
 	id: number;
 	x: number;
@@ -174,7 +176,7 @@ export default function Home() {
 							“오늘 하루는 어땠어?”
 						</p>
 						<div className="relative w-[70%] max-w-[300px] m-auto">
-							<img src={theme == "dark" ? bottle.src : bottleLight.src} alt="" />
+							<Image src={theme == "dark" ? bottle : bottleLight} alt="bottle" />
 							<div
 								ref={starAreaRef}
 								className="absolute bottom-[12%] left-1/2 -translate-x-1/2 w-[70%] h-[65%]"
@@ -200,7 +202,7 @@ export default function Home() {
 									type="button"
 									className="flex flex-col justify-center items-center w-16.25 gap-1 bg-primary-700 rounded-xl p-2.5"
 								>
-									<img src={diaryIcon.src} alt="" width={22} height={24} />
+									<Image src={diaryIcon} alt="diaryIcon" width={22} height={24}/>
 									<span className="text-sm text-primary-100">일기장</span>
 								</button>
 							</Link>
@@ -209,7 +211,7 @@ export default function Home() {
 								className="flex flex-col justify-center items-center w-16.25 gap-1 bg-primary-700 rounded-xl p-2.5"
 								onClick={() => checkIsTodayWrite()}
 							>
-								<img src={diaryWriteIcon.src} alt="" height={24} />
+								<Image src={diaryWriteIcon} alt="diaryIcon" height={24}/>
 								<span className="text-sm text-primary-100">작성하기</span>
 							</button>
 						</div>
@@ -238,7 +240,7 @@ export default function Home() {
 							>
 								<div className="flex items-center justify-between">
 									<div className="flex items-center gap-3">
-										<img src={diaryQuestion.src} width={44} alt="" />
+										<Image src={diaryQuestion} alt="" width={44}/>
 										<div>
 											<h3 className="text-primary-100">질문형 일기장</h3>
 											<p className="text-primary-200 text-sm mt-1">
@@ -255,7 +257,7 @@ export default function Home() {
 							>
 								<div className="flex items-center justify-between">
 									<div className="flex items-center gap-3">
-										<img src={diaryFree.src} width={44} alt="" />
+										<Image src={diaryFree} alt="" width={44}/>
 										<div>
 											<h3 className="text-primary-100">기록형 일기장</h3>
 											<p className="text-primary-200 text-sm mt-1">

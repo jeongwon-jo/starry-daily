@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface NumberPadProps {
 	onNumberClick: (num: number) => void;
 	onDelete: () => void;
@@ -20,11 +22,8 @@ export function NumberPad({ onNumberClick, onDelete }: NumberPadProps) {
 				if (key === "delete") {
 					return (
 						<button key={i} onClick={onDelete} className="flex justify-center">
-							<img
-								src="/images/lock_numberpad_delete.svg"
-								alt="삭제"
-								className="w-[30px]"
-							/>
+							<Image src="/images/lock_numberpad_delete.svg" alt="삭제"
+								className="w-[30px]" width={30} height={30}/>
 						</button>
 					);
 				}

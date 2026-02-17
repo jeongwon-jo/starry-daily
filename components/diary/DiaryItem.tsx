@@ -11,6 +11,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { ConfirmModal } from "../ui";
 import { useState } from "react";
+import Image from "next/image";
 
 type Props = {
   id: string;
@@ -86,7 +87,7 @@ export default function DiaryItem({
         <span className="bg-(--color-surface-overlay) inline-flex items-center gap-2 h-7 text-sm text-primary-300 rounded-sm px-2">
           오늘의 기분
           {mood && moodMap[mood] && (
-            <img src={moodMap[mood]} alt={mood} width={18} />
+            <Image src={moodMap[mood]} alt={mood} width={18} height={18}/>
           )}
         </span>
       </div>

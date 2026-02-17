@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ConfirmModal, ToggleSwitch } from "@/components/ui";
 import type { User } from "@supabase/supabase-js";
+import Image from "next/image";
 
 export default function SettingPage() {
 	const router = useRouter();
@@ -133,7 +134,7 @@ export default function SettingPage() {
 							<div className="flex justify-between items-center px-2">
 								<div className="flex items-center gap-2">
 									<div className="size-6">
-										<img src={settingIcon1.src} alt="내 정보 관리" />
+										<Image src={settingIcon1} alt="내 정보 관리" width={24} height={24}/>
 									</div>
 									<p className="text-primary-100">내 정보 관리</p>
 								</div>
@@ -144,7 +145,7 @@ export default function SettingPage() {
 							<div className="flex justify-between items-center px-2">
 								<div className="flex items-center gap-2">
 									<div className="size-6">
-										<img src={settingIcon2.src} alt="일기장" />
+										<Image src={settingIcon2} alt="일기장" width={24} height={24}/>
 									</div>
 									<p className="text-primary-100">일기장</p>
 								</div>
@@ -154,7 +155,7 @@ export default function SettingPage() {
 						<div className="flex justify-between items-center px-2">
 							<div className="flex items-center gap-2">
 								<div className="size-6">
-									<img src={settingIcon3.src} alt="다크모드" />
+									<Image src={settingIcon3} alt="다크모드" width={24} height={24}/>
 								</div>
 								<p className="text-primary-100">다크모드</p>
 							</div>
@@ -171,7 +172,7 @@ export default function SettingPage() {
 							<div className="flex justify-between items-center px-2">
 								<div className="flex items-center gap-2">
 									<div className="size-6">
-										<img src={settingIcon4.src} alt="공지사항" />
+										<Image src={settingIcon4} alt="공지사항" width={24} height={24}/>
 									</div>
 									<p className="text-primary-100">공지사항</p>
 								</div>
@@ -182,7 +183,7 @@ export default function SettingPage() {
 							<div className="flex justify-between items-center px-2">
 								<div className="flex items-center gap-2">
 									<div className="size-6">
-										<img src={settingIcon5.src} alt="이용약관" />
+										<Image src={settingIcon5} alt="공지사항" width={24} height={24}/>
 									</div>
 									<p className="text-primary-100">이용약관</p>
 								</div>
@@ -194,7 +195,7 @@ export default function SettingPage() {
 						<div className="flex justify-between items-center px-2 mb-6">
 							<div className="flex items-center gap-2">
 								<div className="size-6">
-									<img src={settingIcon6.src} alt="별별일기 잠금" />
+									<Image src={settingIcon6} alt="별별일기 잠금" width={24} height={24}/>
 								</div>
 								<p className="text-primary-100">별별일기 잠금</p>
 							</div>
@@ -211,7 +212,7 @@ export default function SettingPage() {
 						}}>
 							<div className="flex items-center gap-2">
 								<div className="size-6">
-									<img src={settingIcon7.src} alt="탈퇴하기" />
+									<Image src={settingIcon7} alt="탈퇴하기" width={24} height={24}/>
 								</div>
 								<p className="text-primary-100">탈퇴하기</p>
 							</div>
@@ -226,7 +227,7 @@ export default function SettingPage() {
 						>
 							<div className="flex items-center gap-2">
 								<div className="size-6">
-									<img src={settingIcon8.src} alt="로그아웃" />
+									<Image src={settingIcon8} alt="로그아웃" width={24} height={24}/>
 								</div>
 								<p className="text-primary-100">로그아웃</p>
 							</div>

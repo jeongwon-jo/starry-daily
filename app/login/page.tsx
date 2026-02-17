@@ -6,6 +6,7 @@ import StarryBottle from "@/assets/images/sub/starry_bottle.png";
 import { createClient } from "@/utils/supabase/client";
 import { useTheme } from "@/providers/ThemeProvider";
 import { useEffect } from "react";
+import Image from "next/image";
 
 export default function LoginPage() {
 	const supabase = createClient();
@@ -54,7 +55,7 @@ export default function LoginPage() {
 				<div className="w-full h-full flex flex-col justify-between items-center">
 					<div></div>
 					<div className="flex flex-col gap-2 justify-center items-center">
-						<img src={StarryBottle.src} alt="bottle" className="h-25" />
+						<Image src={StarryBottle} alt="bottle" className="w-auto h-25"/>
 						<p className="font-bold text-primary-100 text-2xl text-center">
 							별별하루
 						</p>

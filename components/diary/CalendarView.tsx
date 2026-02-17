@@ -7,6 +7,7 @@ import sadMood from "@/assets/images/sub/star_sad_face.svg";
 import angryMood from "@/assets/images/sub/star_angry_face.svg";
 import unrestMood from "@/assets/images/sub/star_unrest_face.svg";
 import tiredMood from "@/assets/images/sub/star_tired_face.svg";
+import Image from "next/image";
 
 
 type Props = {
@@ -77,12 +78,9 @@ export default function CalendarView({ year, month, diaries, onSelectDate }: Pro
                     </span>
 
                     {diary?.mood && moodMap[diary.mood] && (
-                      <img
-                        src={moodMap[diary.mood]}
-                        alt={diary.mood}
-                        width={16}
-                        className="mt-1"
-                      />
+                      <Image src={moodMap[diary.mood]} alt={diary.mood}
+                        width={16} height={16}
+                        className="mt-1"/>
                     )}
                   </>
                 )}

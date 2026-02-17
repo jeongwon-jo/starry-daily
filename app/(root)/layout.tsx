@@ -5,6 +5,7 @@ import StarImg from "@/assets/images/sub/star.png";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
+import Image from "next/image";
 
 export default function RootClientLayout({
 	children,
@@ -45,13 +46,9 @@ export default function RootClientLayout({
 					<div></div>
 					<div className="flex flex-col items-center justify-center gap-2">
 						<div className="relative w-[73px] mx-auto">
-							<img
-								src={BottleImg.src}
-								alt="bottle"
-								className="w-full animate-bottle"
-							/>
-							<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[30%] w-12 ">
-								<img src={StarImg.src} alt="star" className="animate-star" />
+							<Image src={BottleImg} alt="bottle" className="w-full animate-bottle"/>
+							<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[30%] w-12">
+							<Image src={StarImg} alt="star" className="animate-star"/>
 							</div>
 						</div>
 						<p className="font-bold text-primary-100 text-2xl">별별하루</p>
