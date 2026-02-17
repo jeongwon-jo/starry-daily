@@ -8,8 +8,8 @@ export default function SignupStep4Page() {
   return (
 		<div className="w-full min-h-dvh">
 			<Header type="navigation" title="가입완료"></Header>
-			<div className="container">
-				<div className="px-5 py-5 pb-30 w-full">
+			<div className="container h-[calc(100dvh-48px)]">
+				<div className="px-5 py-5 pb-30 w-full h-full flex flex-col justify-between">
 					<h3 className="text-2xl font-bold text-primary-100 mb-6">
 						이제 별을 모으러 가볼까요?
 					</h3>
@@ -20,6 +20,7 @@ export default function SignupStep4Page() {
 							<div className="bg-[url('../assets/images/sub/shaking_bottle3.png')] bg-no-repeat bg-contain absolute w-full h-full top-0 left-0 opacity-0 z-20 fade-bottle-3"></div>
 						</div>
 					</div>
+					<div></div>
 				</div>
 				<div className="app_bottom">
 					<Link href="/">

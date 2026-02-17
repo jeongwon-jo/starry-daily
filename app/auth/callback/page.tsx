@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
+import { redirect } from "next/navigation";
 
 export default function AuthCallbackPage() {
   const router = useRouter();
@@ -12,11 +13,23 @@ export default function AuthCallbackPage() {
     const run = async () => {
       const { data } = await supabase.auth.getSession();
 
-      if (data.session) {
-        router.replace("/");
-      } else {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!data.session) {
         router.replace("/login");
-      }
+      } else {
+        if (!user) {
+          redirect("/login");
+        }
+
+        const nickname = user.user_metadata?.nickname;
+
+        if (!nickname) {
+          redirect("/signup/step2");
+        }
+      } 
     };
 
     run();

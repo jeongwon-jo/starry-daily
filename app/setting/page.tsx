@@ -109,7 +109,7 @@ export default function SettingPage() {
 				</div>
 				<div className="mt-5">
 					<div className="py-5 px-4 border-b-2 border-b-[rgb(255,255,255,0.5)] dark:border-b-[rgb(255,255,255,0.04)]">
-						<Link href={"/setting/info"} className="block mb-6">
+						<Link href={""} className="block mb-6">
 							<div className="flex justify-between items-center px-2">
 								<div className="flex items-center gap-2">
 									<div className="size-6">
