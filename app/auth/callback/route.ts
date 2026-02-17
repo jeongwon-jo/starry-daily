@@ -6,6 +6,7 @@ export async function GET(request: Request) {
   const code = searchParams.get("code");
 
   if (!code) {
+    alert("code 없음")
     return NextResponse.redirect(
       new URL("/login", request.url)
     );
@@ -16,6 +17,7 @@ export async function GET(request: Request) {
   const { error } = await supabase.auth.exchangeCodeForSession(code);
 
   if (error) {
+    alert(error)
     return NextResponse.redirect(
       new URL("/login", request.url)
     );
@@ -26,6 +28,7 @@ export async function GET(request: Request) {
   } = await supabase.auth.getUser();
 
   if (!user) {
+    alert("user 없음")
     return NextResponse.redirect(
       new URL("/login", request.url)
     );
@@ -34,6 +37,7 @@ export async function GET(request: Request) {
   const nickname = user.user_metadata?.nickname;
 
   if (!nickname) {
+    alert("nickname 없음")
     return NextResponse.redirect(
       new URL("/signup/step2", request.url)
     );
