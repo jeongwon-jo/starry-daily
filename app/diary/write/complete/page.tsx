@@ -119,6 +119,7 @@ export default function DiaryWriteCompletePage() {
 													rounded-full
 													bg-[#fff]/30
 													blur-[80px]
+													overflow-hidden
 													animate-fadeInSlow
 												"
 												/>
