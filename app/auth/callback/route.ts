@@ -7,14 +7,14 @@ export async function GET(request: Request) {
 
   if (!code) {
     alert("code 없음")
-    return NextResponse.redirect(
-      new URL("/login", request.url)
-    );
+    // return NextResponse.redirect(
+    //   new URL("/login", request.url)
+    // );
   }
 
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.exchangeCodeForSession(code);
+  const { error } = await supabase.auth.exchangeCodeForSession(code?? "");
 
   if (error) {
     alert(error)
