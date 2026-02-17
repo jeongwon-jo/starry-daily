@@ -25,7 +25,7 @@ export const ToggleSwitch = ({
 			/>
 			<div
 				className={`w-12 h-7 flex items-center rounded-full p-1 duration-300 ease-in-out ${
-					checked ? "bg-[rgb(255,255,255,0.5)]" : "bg-[rgb(255,255,255,0.1)]"
+					checked ? "bg-[rgb(71,30,103,0.5)] dark:bg-[rgb(255,255,255,0.5)]" : "bg-[rgb(71,30,103,0.1)] dark:bg-[rgb(255,255,255,0.1)]"
 				} ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
 			>
 				<div

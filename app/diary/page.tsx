@@ -122,7 +122,7 @@ export default function DiaryListPage() {
 								type="button"
 								className={`size-6 inline-block bg-[url('../assets/images/icon/icon_calendar.svg')] bg-no-repeat relative mr-1.5 ${
 									tab == "calendar"
-										? "bg-[url('../assets/images/icon/icon_calendar_active.svg')]"
+										? "bg-[url('../assets/images/icon/icon_calendar_active_light.svg')] dark:bg-[url('../assets/images/icon/icon_calendar_active.svg')]"
 										: ""
 								} [&:after]:content-[''] [&:after]:w-[1px] [&:after]:h-3 [&:after]:bg-primary-500 [&:after]:absolute [&:after]:top-1/2 [&:after]:-translate-y-1/2 [&:after]:-right-1.5`}
 								onClick={() => setTab("calendar")}
@@ -131,7 +131,7 @@ export default function DiaryListPage() {
 								type="button"
 								className={`size-6 inline-block bg-[url('../assets/images/icon/icon_list.svg')] bg-no-repeat ${
 									tab == "list"
-										? "bg-[url('../assets/images/icon/icon_list_active.svg')]"
+										? "bg-[url('../assets/images/icon/icon_list_active_light.svg')] dark:bg-[url('../assets/images/icon/icon_list_active.svg')]"
 										: ""
 								}`}
 								onClick={() => setTab("list")}

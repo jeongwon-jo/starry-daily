@@ -13,30 +13,90 @@ import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ToggleSwitch } from "@/components/ui";
+import { ConfirmModal, ToggleSwitch } from "@/components/ui";
 import type { User } from "@supabase/supabase-js";
 
 export default function SettingPage() {
 	const router = useRouter();
 	const [user, setUser] = useState<User | null>(null);
-	const [darkMode, setDarkMode] = useState(false);
 	const [lockMode, setLockMode] = useState(false);
+	const supabase = createClient();
+	const [openModal, setOpenModal] = useState(false);
+  const [message, setMessage] = useState("");
+	const [darkMode, setDarkMode] = useState<boolean>(true);
+
+	const applyTheme = (isDark: boolean) => {
+    const html = document.documentElement;
+    isDark
+      ? html.classList.add("dark")
+      : html.classList.remove("dark");
+  };
 
 	useEffect(() => {
-		const supabase = createClient();
+		const loadUserSetting = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-		supabase.auth.getUser().then(({ data: { user } }) => {
-			console.log(user)
-			setUser(user);
-		});
-	}, []);
+			setUser(user)
+      if (!user) return;
+
+      const storedDarkMode = user.user_metadata?.dark_mode;
+
+      if (typeof storedDarkMode === "boolean") {
+        setDarkMode(storedDarkMode);
+        applyTheme(storedDarkMode);
+      }
+    };
+
+		loadUserSetting();
+	}, [setDarkMode, supabase.auth]);
+
 	
+
+  const handleToggle = async () => {
+    const nextValue = !darkMode;
+    setDarkMode(nextValue);
+    applyTheme(nextValue);
+
+    await supabase.auth.updateUser({
+      data: {
+        dark_mode: nextValue,
+      },
+    });
+  };
+
 	const handleLogout = async () => {
-		const supabase = createClient();
 		await supabase.auth.signOut();
 		router.refresh();
 		router.replace("/login");
 	};
+
+	const handleDeleteAccount = async () => {
+		const {
+			data: { user },
+		} = await supabase.auth.getUser();
+
+		if (!user) return;
+
+		const res = await fetch("/api/delete-account", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ userId: user.id }),
+		});
+
+		const result = await res.json();
+
+		if (result.error) {
+			alert(result.error);
+			return;
+		}
+
+		await supabase.auth.signOut();
+		router.replace("/login");
+	};
+
+
 
   return (
 		<div className="w-full min-h-dvh">
@@ -48,7 +108,7 @@ export default function SettingPage() {
 					</div>
 				</div>
 				<div className="mt-5">
-					<div className="py-5 px-4 border-b-2 border-b-[rgb(255,255,255,0.04)]">
+					<div className="py-5 px-4 border-b-2 border-b-[rgb(255,255,255,0.5)] dark:border-b-[rgb(255,255,255,0.04)]">
 						<Link href={"/setting/info"} className="block mb-6">
 							<div className="flex justify-between items-center px-2">
 								<div className="flex items-center gap-2">
@@ -81,14 +141,12 @@ export default function SettingPage() {
 							<div>
 								<ToggleSwitch
 									checked={darkMode}
-									onChange={() => {
-										setDarkMode(!darkMode);
-									}}
+									onChange={handleToggle}
 								/>
 							</div>
 						</div>
 					</div>
-					<div className="py-5 px-4 border-b-2 border-b-[rgb(255,255,255,0.04)]">
+					<div className="py-5 px-4 border-b-2 border-b-[rgb(255,255,255,0.5)] dark:border-b-[rgb(255,255,255,0.04)]">
 						<Link href={"/notice"} className="block mb-6">
 							<div className="flex justify-between items-center px-2">
 								<div className="flex items-center gap-2">
@@ -112,7 +170,7 @@ export default function SettingPage() {
 							</div>
 						</Link>
 					</div>
-					<div className="py-5 px-4 border-b-2 border-b-[rgb(255,255,255,0.04)]">
+					<div className="py-5 px-4 border-b-2 border-b-[rgb(255,255,255,0.5)] dark:border-b-[rgb(255,255,255,0.04)]">
 						<div className="flex justify-between items-center px-2 mb-6">
 							<div className="flex items-center gap-2">
 								<div className="size-6">
@@ -129,7 +187,10 @@ export default function SettingPage() {
 								/>
 							</div>
 						</div>
-						<div className="flex justify-between items-center px-2">
+						<button type="button" className="w-full flex justify-between items-center px-2" onClick={() => {
+							setMessage("정말 탈퇴하시겠어요?\n작성한 일기는 모두 삭제됩니다.")
+							setOpenModal(true)
+						}}>
 							<div className="flex items-center gap-2">
 								<div className="size-6">
 									<img src={settingIcon7.src} alt="탈퇴하기" />
@@ -137,7 +198,7 @@ export default function SettingPage() {
 								<p className="text-primary-100">탈퇴하기</p>
 							</div>
 							<div className="size-4 shrink-0 bg-[url('../assets/images/icon/icon_setting_link.svg')] bg-no-repeat bg-contain"></div>
-						</div>
+						</button>
 					</div>
 					<div className="py-5 px-4">
 						<button
@@ -156,6 +217,12 @@ export default function SettingPage() {
 					</div>
 				</div>
 			</div>
+			 <ConfirmModal
+				open={openModal}
+				message={message || ""}
+				onClose={() => setOpenModal(false)}
+				onConfirm={handleDeleteAccount}
+			/>
 		</div>
 	);
 }

@@ -34,7 +34,7 @@ export const ConfirmModal = ({ open, message,  onClose, onConfirm }: ModalProps)
 						<img src={StarImg.src} alt="star" className="w-10 h-10" />
 					</div>
 
-					<p className="text-gray-700 text-center text-base mt-4">{message}</p>
+					<p className="text-gray-700 text-center text-base mt-4 whitespace-pre-line">{message}</p>
 				</div>
 				<div className="mt-6 flex items-center gap-2">
           <Button

@@ -240,7 +240,7 @@
     @apply w-7
   }
   .select_mood input[type=radio]:checked+em {
-    @apply bg-[rgb(255,255,255,0.1)]
+    @apply bg-[rgb(71,30,103,0.1)] dark:bg-[rgb(255,255,255,0.1)]
   }
   .diary-textarea {
     font-size: 16px;

@@ -112,13 +112,13 @@ export default function DiaryForm({
     <>
     <div className="p-5">
 					{type === "question" && randomQuestion && (
-						<div className="w-full p-2.5 bg-[rgb(255,255,255,0.1)] rounded-xl text-center text-primary-100 relative [&:after]:content-[''] [&:after]:absolute [&:after]:left-1/2 [&:after]:-bottom-3 [&:after]:-translate-x-1/2 [&:after]:w-5.5 [&:after]:h-3 [&:after]:bg-[url('../assets/images/icon/icon_bubble_arrow.svg')]">
+						<div className="w-full p-2.5 bg-[rgb(71,30,103,0.1)] dark:bg-[rgb(255,255,255,0.1)] rounded-xl text-center text-primary-100 relative [&:after]:content-[''] [&:after]:absolute [&:after]:left-1/2 [&:after]:-bottom-3 [&:after]:-translate-x-1/2 [&:after]:w-5.5 [&:after]:h-3 [&:after]:bg-[url('../assets/images/icon/icon_bubble_arrow_light.svg')] dark:[&:after]:bg-[url('../assets/images/icon/icon_bubble_arrow.svg')]">
 							Q. {randomQuestion}
 						</div>
 					)}
 					<div className="mt-6">
 						<span className="text-primary-300">{displayDate}</span>
-						<div className="mt-2 bg-[rgb(255,255,255,0.04)] p-3 rounded-xl">
+						<div className="mt-2 bg-[rgb(255,255,255,0.5)] dark:bg-[rgb(255,255,255,0.04)] p-3 rounded-xl">
 							<textarea
 								className="
                   diary-textarea
@@ -136,7 +136,7 @@ export default function DiaryForm({
 							></textarea>
 						</div>
 					</div>
-					<div className="mt-6 p-3 bg-[rgb(255,255,255,0.04)] rounded-xl">
+					<div className="mt-6 p-3 bg-[rgb(255,255,255,0.5)] dark:bg-[rgb(255,255,255,0.04)] rounded-xl">
 						<h3 className="text-primary-100">기분은 어때?</h3>
 						<div className="mt-2">
 							<div className="flex items-center">

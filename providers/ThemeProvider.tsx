@@ -1,61 +1,93 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
+import { createClient } from "@/utils/supabase/client";
 
 export type Theme = "dark" | "light";
 
-const STORAGE_KEY = "theme";
+type ThemeContextType = {
+  theme?: Theme;
+  setTheme?: (theme: Theme) => void;
+  toggleTheme: () => void;
+};
 
-const ThemeContext = createContext<unknown>(null);
+const STORAGE_KEY = "theme";
+const ThemeContext = createContext<ThemeContextType | null>(null);
 
 const applyTheme = (theme: Theme) => {
-	const html = document.documentElement;
-	theme === "dark" ? html.classList.add("dark") : html.classList.remove("dark");
+  const html = document.documentElement;
+  theme === "dark"
+    ? html.classList.add("dark")
+    : html.classList.remove("dark");
 };
 
 export const ThemeProvider = ({
-	initialTheme = "dark",
-	children,
+  initialTheme = "dark",
+  children,
 }: {
-	initialTheme?: Theme;
-	children: React.ReactNode;
+  initialTheme?: Theme;
+  children: React.ReactNode;
 }) => {
-	const [theme, setTheme] = useState<Theme>(() => {
-		if (typeof window === "undefined") {
-			return initialTheme;
-		}
+  const supabase = createClient();
+  const [theme, setTheme] = useState<Theme>(initialTheme);
 
-		const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-		return stored ?? initialTheme;
-	});
+  useEffect(() => {
+    const loadTheme = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
 
-	useEffect(() => {
-		applyTheme(theme);
-	}, [theme]);
+      if (!user) {
+        applyTheme("dark");
+        return;
+      }
 
-	const updateTheme = (nextTheme: Theme) => {
-		setTheme(nextTheme);
-		localStorage.setItem(STORAGE_KEY, nextTheme);
-		// TODO: 서버 DB 저장
-	};
+      const darkMode = user.user_metadata?.dark_mode;
 
-	const toggleTheme = () => {
-		updateTheme(theme === "dark" ? "light" : "dark");
-	};
+      const nextTheme =
+        darkMode === false ? "light" : "dark";
 
-	return (
-		<ThemeContext.Provider
-			value={{ theme, setTheme: updateTheme, toggleTheme }}
-		>
-			{children}
-		</ThemeContext.Provider>
-	);
+      setTheme(nextTheme);
+      applyTheme(nextTheme);
+    };
+
+    loadTheme();
+  }, []);
+
+  const updateTheme = async (nextTheme: Theme) => {
+    setTheme(nextTheme);
+    applyTheme(nextTheme);
+
+    localStorage.setItem(STORAGE_KEY, nextTheme);
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    await supabase.auth.updateUser({
+      data: {
+        dark_mode: nextTheme === "dark",
+      },
+    });
+  };
+
+  const toggleTheme = () => {
+    updateTheme(theme === "dark" ? "light" : "dark");
+  };
+
+  return (
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
 export const useTheme = () => {
-	const ctx = useContext(ThemeContext);
-	if (!ctx) {
-		throw new Error("useTheme must be used within ThemeProvider");
-	}
-	return ctx;
+  const ctx = useContext(ThemeContext);
+  if (!ctx) {
+    throw new Error("useTheme must be used within ThemeProvider");
+  }
+  return ctx;
 };
