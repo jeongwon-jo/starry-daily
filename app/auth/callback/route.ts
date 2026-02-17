@@ -6,21 +6,24 @@ export async function GET(request: Request) {
   const code = searchParams.get("code");
 
   if (!code) {
-    alert("code 없음")
-    // return NextResponse.redirect(
-    //   new URL("/login", request.url)
-    // );
+    console.log("❌ CODE 없음");
+    return NextResponse.redirect(
+      new URL("/login", request.url)
+    );
   }
 
   const supabase = await createClient();
 
-  const { error } = await supabase.auth.exchangeCodeForSession(code?? "");
+  const { data, error } = await supabase.auth.exchangeCodeForSession(code?? "");
+
+  console.log("EXCHANGE ERROR:", error);
+  console.log("SESSION:", data?.session);
 
   if (error) {
-    alert(error)
-    // return NextResponse.redirect(
-    //   new URL("/login", request.url)
-    // );
+    console.log("❌", error)
+    return NextResponse.redirect(
+      new URL("/login", request.url)
+    );
   }
   
   const {
@@ -28,10 +31,10 @@ export async function GET(request: Request) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    alert("user 없음")
-    // return NextResponse.redirect(
-    //   new URL("/login", request.url)
-    // );
+    console.log("❌ USER 없음");
+    return NextResponse.redirect(
+      new URL("/login", request.url)
+    );
   }
 
   const nickname = user?.user_metadata?.nickname;
