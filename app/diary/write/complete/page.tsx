@@ -109,7 +109,7 @@ export default function DiaryWriteCompletePage() {
 										)}
 									</div>
 								) : (
-									<div className="relative w-[111px] h-full flex items-center justify-center">
+									<div className="relative w-[264px] h-full flex items-center justify-center">
 										{step === STEPS.length - 1 && (
 											<>
 												<div
