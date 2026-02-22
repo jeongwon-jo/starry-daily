@@ -4,18 +4,15 @@ interface ToggleProps {
 	checked: boolean;
 	onChange: (checked: boolean) => void;
 	disabled?: boolean;
-	label?: string;
 }
 
 export const ToggleSwitch = ({
 	checked,
 	onChange,
 	disabled = false,
-	label,
 }: ToggleProps) => {
 	return (
 		<label className="inline-flex items-center cursor-pointer space-x-2">
-			{label && <span className="text-gray-600 font-medium">{label}</span>}
 			<input
 				type="checkbox"
 				className="sr-only"

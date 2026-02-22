@@ -24,7 +24,10 @@ export default function SignupStep3Page() {
 		setError(null);
 		const supabase = createClient();
 		const { error: updateError } = await supabase.auth.updateUser({
-			data: { nickname: trimmed, darkMode: true },
+			data: { nickname: trimmed, 
+					dark_mode: true,
+					entry_pwd_at: false,
+					entry_pwd: null, },
 		});
 		if (updateError) {
 			setError(updateError.message);

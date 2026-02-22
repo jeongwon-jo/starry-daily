@@ -19,12 +19,12 @@ import Image from "next/image";
 
 export default function SettingPage() {
 	const router = useRouter();
-	const [user, setUser] = useState<User | null>(null);
-	const [lockMode, setLockMode] = useState(false);
 	const supabase = createClient();
+	const [user, setUser] = useState<User | null>(null);
+	const [lockMode, setLockMode] = useState<boolean>(false);
+	const [darkMode, setDarkMode] = useState<boolean>(true);
 	const [openModal, setOpenModal] = useState(false);
   const [message, setMessage] = useState("");
-	const [darkMode, setDarkMode] = useState<boolean>(true);
 
 	const applyTheme = (isDark: boolean) => {
     const html = document.documentElement;
@@ -40,9 +40,10 @@ export default function SettingPage() {
       } = await supabase.auth.getUser();
 
 			setUser(user)
+			
       if (!user) return;
 			
-			setLockMode(user?.user_metadata?.entry_pwd_at)
+			setLockMode(user?.user_metadata?.entry_pwd_at ?? false)
 
       const storedDarkMode = user.user_metadata?.dark_mode;
 
@@ -54,8 +55,6 @@ export default function SettingPage() {
 
 		loadUserSetting();
 	}, [setDarkMode, supabase.auth]);
-
-	
 
   const handleToggle = async () => {
     const nextValue = !darkMode;

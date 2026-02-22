@@ -45,7 +45,7 @@ export default function CalendarView({ year, month, diaries, onSelectDate }: Pro
   const diaryMap = new Map<number, Diary>();
 
   diaries.forEach((diary) => {
-    const date = new Date(diary.created_at);
+    const date = new Date(diary.date);
     const day = date.getDate();
     diaryMap.set(day, diary);
   });

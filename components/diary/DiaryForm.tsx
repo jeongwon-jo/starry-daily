@@ -15,10 +15,12 @@ import Image from "next/image";
 
 export default function DiaryForm({
 	type,
+	selectedDate,
 	diary,
 	randomQuestion,
 }: {
 	type: string | undefined;
+	selectedDate: string | undefined;
 	diary?: Diary;
 	randomQuestion: string | null;
 }) {
@@ -44,7 +46,7 @@ export default function DiaryForm({
 	const baseDate = diary
   ? diary.created_at
   : new Date().toISOString();
-	const displayDate = formatKoreanDate(baseDate);
+	const displayDate = selectedDate ?? formatKoreanDate(baseDate);
 
 	const handleSave = async () => {
 		if (!content) {
@@ -91,7 +93,7 @@ export default function DiaryForm({
 					{
 						question: type === "question" ? randomQuestion : null,
 						content,
-						date: new Date().toISOString().split("T")[0],
+						date: selectedDate ?? new Date().toISOString().split("T")[0],
 						mood,
 						user_id: user.id,
 					},

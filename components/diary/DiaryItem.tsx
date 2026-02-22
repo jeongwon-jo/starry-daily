@@ -49,9 +49,6 @@ export default function DiaryItem({
     const {
       data: { user },
     } = await supabase.auth.getUser();
-
-    console.log(id);
-    console.log(user?.id);
     
     const { error } = await supabase
       .from("diary")
@@ -84,7 +81,7 @@ export default function DiaryItem({
       </Link>
 
       <div className="mt-1">
-        <span className="bg-(--color-surface-overlay) inline-flex items-center gap-2 h-7 text-sm text-primary-300 rounded-sm px-2">
+        <span className="bg-white dark:bg-(--color-surface-overlay) inline-flex items-center gap-2 h-7 text-sm text-primary-300 rounded-sm px-2">
           오늘의 기분
           {mood && moodMap[mood] && (
             <Image src={moodMap[mood]} alt={mood} width={18} height={18}/>
