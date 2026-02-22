@@ -22,6 +22,7 @@ const SchoolSafeOuting = localFont({
 });
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://starry-daily.vercel.app/"),
   title: "별별하루",
   description: "소중한 하루를 정리하며 행운의 별을 모아보세요!",
 	openGraph: {
