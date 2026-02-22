@@ -25,6 +25,8 @@ export async function middleware(request: NextRequest) {
 	const isPublicRoot = pathname === "/";
 	const isAuthPage =
 		pathname.startsWith("/login") || pathname.startsWith("/signup");
+	const isLoginPage = pathname.startsWith("/login");
+	const isSignupRoot = pathname === "/signup";
 
 	if (pathname.startsWith("/api")) {
 		return response;
@@ -38,7 +40,7 @@ export async function middleware(request: NextRequest) {
 		return NextResponse.redirect(new URL("/login", request.url));
 	}
 
-	if (user && isAuthPage) {
+	if (user && (isLoginPage || isSignupRoot)) {
 		return NextResponse.redirect(new URL("/", request.url));
 	}
 
