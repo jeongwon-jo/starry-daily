@@ -52,8 +52,7 @@ const getStarPosition = (index: number, areaWidth: number) => {
 };
 
 export default function Home() {
-	const {theme} = useTheme()
-	const router = useRouter();
+	const {theme} = useTheme();
 	const supabase = createClient();
 	const [stars, setStars] = useState<Star[]>([]);
 	const [openDiaryType, setOpenDiaryType] = useState<boolean>(false);
@@ -70,12 +69,6 @@ export default function Home() {
   }. ${date.getDate()}`;
 
 	useEffect(() => {
-		supabase.auth.getUser().then(({ data: { user } }) => {
-			setUser(user);
-		});
-	}, []);
-
-	useEffect(() => {
 		const getUser = async () => {
 			const {
 				data: { user },
@@ -87,7 +80,7 @@ export default function Home() {
 		};
 
 		getUser();
-	}, []);
+	}, [supabase.auth]);
 
 	useEffect(() => {
 		if (!starAreaRef.current) return;
@@ -137,10 +130,13 @@ export default function Home() {
 
 			if (!user) return;
 
+			const today = new Date().toISOString().split("T")[0];
+
 			const { data } = await supabase
 				.from("diary")
 				.select("*")
 				.eq("user_id", user.id)
+				.eq("date", today)
 				.single();
 
 			if(data) {
@@ -162,7 +158,6 @@ export default function Home() {
 		}
 	}
 	
-
 	return (
 		<div className="w-full min-h-dvh">
 			<Header type="default"></Header>
