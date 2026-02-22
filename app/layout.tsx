@@ -28,11 +28,10 @@ export const metadata: Metadata = {
 	openGraph: {
     title: "Starry Daily",
     description: "별처럼 기록하는 나만의 하루",
-    url: "https://starry-daily.vercel.app/",
     siteName: "Starry Daily",
     images: [
       {
-        url: "/images/opengraph.png",
+        url: "/images/opengraph.jpg",
         width: 926,
         height: 452,
         alt: "Starry Daily OG Image",
