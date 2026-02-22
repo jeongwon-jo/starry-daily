@@ -40,7 +40,7 @@ export default async function DiaryWritePage({ params }: Props) {
 		<div className="w-full min-h-dvh">
 			<Header type="navigation" title="작성하기" isSetting={true}></Header>
 			<div className="container">
-				<DiaryForm diary={diary} type={diary.question ? "question" : "diary"} randomQuestion={diary.question} />
+				<DiaryForm diary={diary} selectedDate={diary.date} type={diary.question ? "question" : "diary"} randomQuestion={diary.question} />
 			</div>
 		</div>
 	);
