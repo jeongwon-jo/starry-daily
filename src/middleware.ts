@@ -28,6 +28,15 @@ export async function middleware(request: NextRequest) {
 	const isLoginPage = pathname.startsWith("/login");
 	const isSignupRoot = pathname === "/signup";
 
+	if (
+		pathname.startsWith("/images") ||
+		pathname.startsWith("/fonts") ||
+		pathname.startsWith("/favicon") ||
+		pathname.match(/\.(png|jpg|jpeg|svg|webp|gif)$/)
+	) {
+		return response;
+	}
+
 	if (pathname.startsWith("/api")) {
 		return response;
 	}
