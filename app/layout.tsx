@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/images/opengraph.png",
-        width: 348,
-        height: 170,
+        width: 926,
+        height: 452,
         alt: "Starry Daily OG Image",
       },
     ],
