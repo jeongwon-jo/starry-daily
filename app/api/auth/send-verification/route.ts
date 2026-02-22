@@ -1,7 +1,6 @@
-import { setCode } from "@/lib/verification-store";
-import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { sendMail } from "@/lib/smtp";
+import { createClient } from "@/utils/supabase/server";
 
 export const runtime = "nodejs";
 
@@ -29,6 +28,7 @@ async function sendVerificationEmail(
       error: String(result.error),
     };
   }
+	
 
   return { sent: true };
 }
@@ -44,8 +44,15 @@ export async function POST(request: Request) {
 			);
 		}
 
+		const supabase = await createClient();
 		const code = generateCode();
-		setCode(email, code);
+		// setCode(email, code);
+
+		await supabase.from("email_verifications").insert({
+      email: email.toLowerCase(),
+      code,
+      expires_at: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
+    });
 
 		const result = await sendVerificationEmail(email, code);
 
