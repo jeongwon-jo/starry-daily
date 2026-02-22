@@ -1,40 +1,34 @@
 import { setCode } from "@/lib/verification-store";
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { sendMail } from "@/lib/smtp";
 
 function generateCode(): string {
 	return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
 async function sendVerificationEmail(
-	to: string,
-	code: string
+  to: string,
+  code: string
 ): Promise<{ sent: boolean; error?: string }> {
-	const apiKey = process.env.RESEND_API_KEY;
-	const resend = new Resend(apiKey);
-	const from =
-		process.env.RESEND_FROM ?? "Starry Daily <onboarding@resend.dev>";
-
-	const { error } = await resend.emails.send({
-		from,
-		to: [to],
-		subject: "[Starry Daily] 이메일 인증번호",
-		html: `
+  const result = await sendMail({
+    to,
+    subject: "[Starry Daily] 이메일 인증번호",
+    html: `
       <p>회원가입을 위한 인증번호입니다.</p>
       <p><strong>인증번호: ${code}</strong></p>
       <p>5분 내에 입력해 주세요. 요청하지 않았다면 무시해 주세요.</p>
     `,
-	});
+  });
 
-	if (error) {
-		const message =
-			typeof error === "object" && error !== null && "message" in error
-				? String((error as { message: string }).message)
-				: String(error);
-		return { sent: false, error: message };
-	}
+  if (!result.sent) {
+    return {
+      sent: false,
+      error: String(result.error),
+    };
+  }
 
-	return { sent: true };
+  return { sent: true };
 }
 
 export async function POST(request: Request) {
