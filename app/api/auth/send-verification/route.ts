@@ -3,6 +3,8 @@ import { Resend } from "resend";
 import { NextResponse } from "next/server";
 import { sendMail } from "@/lib/smtp";
 
+export const runtime = "nodejs";
+
 function generateCode(): string {
 	return Math.floor(100000 + Math.random() * 900000).toString();
 }

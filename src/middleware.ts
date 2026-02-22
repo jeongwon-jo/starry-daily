@@ -26,6 +26,10 @@ export async function middleware(request: NextRequest) {
 	const isAuthPage =
 		pathname.startsWith("/login") || pathname.startsWith("/signup");
 
+	if (pathname.startsWith("/api")) {
+		return response;
+	}
+
 	if (pathname.startsWith("/auth/callback")) {
     return NextResponse.next();
   }
