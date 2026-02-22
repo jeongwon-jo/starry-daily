@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Starry Daily",
     images: [
       {
-        url: "/images/opengraph2.jpg",
+        url: "/images/opengraph.png",
         width: 1200,
         height: 630,
         alt: "Starry Daily OG Image",
