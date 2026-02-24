@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import happyMood from "@/assets/images/sub/star_happy_face.svg";
-import loveMood from "@/assets/images/sub/star_love_face.svg";
-import sadMood from "@/assets/images/sub/star_sad_face.svg";
-import angryMood from "@/assets/images/sub/star_angry_face.svg";
-import unrestMood from "@/assets/images/sub/star_unrest_face.svg";
-import tiredMood from "@/assets/images/sub/star_tired_face.svg";
+import happyMood from "@/assets/images/sub/star_happy_face.png";
+import loveMood from "@/assets/images/sub/star_love_face.png";
+import sadMood from "@/assets/images/sub/star_sad_face.png";
+import angryMood from "@/assets/images/sub/star_angry_face.png";
+import unrestMood from "@/assets/images/sub/star_unrest_face.png";
+import tiredMood from "@/assets/images/sub/star_tired_face.png";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { ConfirmModal } from "../ui";
@@ -84,7 +84,7 @@ export default function DiaryItem({
         <span className="bg-white dark:bg-(--color-surface-overlay) inline-flex items-center gap-2 h-7 text-sm text-primary-300 rounded-sm px-2">
           오늘의 기분
           {mood && moodMap[mood] && (
-            <Image src={moodMap[mood]} alt={mood} width={18} height={18}/>
+            <img src={moodMap[mood]} alt={mood} className="size-4.5" />
           )}
         </span>
       </div>

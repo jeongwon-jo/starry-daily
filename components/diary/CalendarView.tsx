@@ -1,12 +1,12 @@
 "use client";
 
 import { Diary } from "@/app/diary/page";
-import happyMood from "@/assets/images/sub/star_happy_face.svg";
-import loveMood from "@/assets/images/sub/star_love_face.svg";
-import sadMood from "@/assets/images/sub/star_sad_face.svg";
-import angryMood from "@/assets/images/sub/star_angry_face.svg";
-import unrestMood from "@/assets/images/sub/star_unrest_face.svg";
-import tiredMood from "@/assets/images/sub/star_tired_face.svg";
+import happyMood from "@/assets/images/sub/star_happy_face.png";
+import loveMood from "@/assets/images/sub/star_love_face.png";
+import sadMood from "@/assets/images/sub/star_sad_face.png";
+import angryMood from "@/assets/images/sub/star_angry_face.png";
+import unrestMood from "@/assets/images/sub/star_unrest_face.png";
+import tiredMood from "@/assets/images/sub/star_tired_face.png";
 import Image from "next/image";
 
 
@@ -78,9 +78,7 @@ export default function CalendarView({ year, month, diaries, onSelectDate }: Pro
                     </span>
 
                     {diary?.mood && moodMap[diary.mood] && (
-                      <Image src={moodMap[diary.mood]} alt={diary.mood}
-                        width={16} height={16}
-                        className="mt-1"/>
+                      <img src={moodMap[diary.mood]} alt={diary.mood} className="mt-1 size-4" />
                     )}
                   </>
                 )}
