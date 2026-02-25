@@ -1,9 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Input } from "../ui";
 import { StepProps } from "@/app/signup/step1/page";
 
-export const StepBirth = ({ form, onNext }: StepProps) => {
+export const StepBirth = ({ form, onNext, active }: StepProps) => {
 	const [birth, setBirth] = useState(form.birthDate || "");
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		if (!active) return;
+
+		const timer = setTimeout(() => {
+			inputRef.current?.focus();
+		}, 300);
+
+		return () => clearTimeout(timer);
+	}, [active]);
 
 	useEffect(() => {
 		if (birth.length === 6) {
@@ -19,6 +30,7 @@ export const StepBirth = ({ form, onNext }: StepProps) => {
 
 			<Input
 				id="birth"
+				ref={inputRef}
 				type="number"
 				value={birth}
 				onChange={(e) => setBirth(e.target.value.slice(0, 6))}

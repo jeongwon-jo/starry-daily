@@ -25,6 +25,7 @@ export interface StepProps {
 	form: SignupForm;
 	onNext: (data?: Partial<SignupForm>) => void;
 	loading?: boolean;
+	active: boolean;
 }
 
 const SIGNUP_AGREED_KEY = "signup_agreed";
@@ -119,15 +120,16 @@ export default function SignupStep1Page() {
 							className="flex w-full transition-transform duration-300 ease-out"
 							style={{ transform: `translateX(-${step * 100}%)` }}
 						>
-							<StepName form={form} onNext={handleNext} />
-							<StepBirth form={form} onNext={handleNext} />
-							<StepEmail form={form} onNext={handleNext} />
-							<StepVerify form={form} onNext={handleNext} />
-							<StepPassword form={form} onNext={handleNext} />
+							<StepName form={form} onNext={handleNext} active={step === 0} />
+							<StepBirth form={form} onNext={handleNext} active={step === 1} />
+							<StepEmail form={form} onNext={handleNext} active={step === 2} />
+							<StepVerify form={form} onNext={handleNext}  active={step === 3} />
+							<StepPassword form={form} onNext={handleNext}  active={step === 4} />
 							<StepPasswordConfirm
 								form={form}
 								onNext={handleNext}
 								loading={loading}
+								 active={step === 5}
 							/>
 						</div>
 					</div>
@@ -135,7 +137,9 @@ export default function SignupStep1Page() {
 				<MessageModal
 					open={openModal}
 					message={error || ""}
-					onClose={() => {router.replace("/signup/agree");}}
+					onClose={() => {
+						router.replace("/signup/agree");
+					}}
 				/>
 			</div>
 		</div>

@@ -4,7 +4,7 @@ import { StepProps } from "@/app/signup/step1/page";
 import { Button, Input, MessageModal } from "../ui";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export const StepVerify = ({ form, onNext }: StepProps) => {
+export const StepVerify = ({ form, onNext, active }: StepProps) => {
 	const email = form.email || "";
 
 	const [code, setCode] = useState("");
@@ -16,6 +16,17 @@ export const StepVerify = ({ form, onNext }: StepProps) => {
 	const [modalMessage, setModalMessage] = useState("");
 
 	const hasAutoSent = useRef(false);
+	const inputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		if (!active) return;
+
+		const timer = setTimeout(() => {
+			inputRef.current?.focus();
+		}, 300);
+
+		return () => clearTimeout(timer);
+	}, [active]);
 
 	const sendCode = useCallback(
 		async (isResend = false) => {
@@ -48,7 +59,7 @@ export const StepVerify = ({ form, onNext }: StepProps) => {
 				setSendLoading(false);
 			}
 		},
-		[email]
+		[email],
 	);
 
 	// 진입하자마자 이메일 발송
@@ -113,11 +124,12 @@ export const StepVerify = ({ form, onNext }: StepProps) => {
 
 			<Input
 				id="verifyNumber"
-				type="text"
+				type="email"
+				inputMode="email"
+				autoComplete="email"
+				ref={inputRef}
 				value={code}
-				onChange={(e) =>
-					setCode(e.target.value.replace(/\D/g, "").slice(0, 6))
-				}
+				onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
 				placeholder="인증번호 6자리"
 				className="mb-2"
 			/>

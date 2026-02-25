@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Input } from "../ui";
 import { StepProps } from "@/app/signup/step1/page";
 
@@ -6,8 +6,19 @@ import { StepProps } from "@/app/signup/step1/page";
 const isValidPassword = (pwd: string) =>
 	/^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(pwd);
 
-export const StepPassword = ({ form, onNext }: StepProps) => {
+export const StepPassword = ({ form, onNext, active }: StepProps) => {
 	const [pwd, setPwd] = useState(form.password || "");
+	const inputRef = useRef<HTMLInputElement>(null);
+	
+	useEffect(() => {
+		if (!active) return;
+
+		const timer = setTimeout(() => {
+			inputRef.current?.focus();
+		}, 300);
+
+		return () => clearTimeout(timer);
+	}, [active]);
 
 	const canNext = isValidPassword(pwd);
 
@@ -21,6 +32,7 @@ export const StepPassword = ({ form, onNext }: StepProps) => {
 				id="pwd"
 				type="password"
 				value={pwd}
+				ref={inputRef}
 				onChange={(e) => setPwd(e.target.value)}
 				placeholder="영문 숫자 조합 8자리 이상"
 			/>

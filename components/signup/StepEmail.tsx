@@ -1,12 +1,24 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Input } from "../ui";
 import { StepProps } from "@/app/signup/step1/page";
 
 const isValidEmail = (email: string) =>
 	/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-export const StepEmail = ({ form, onNext }: StepProps) => {
+export const StepEmail = ({ form, onNext, active }: StepProps) => {
 	const [email, setEmail] = useState(form.email || "");
+	const inputRef = useRef<HTMLInputElement>(null);
+	
+	useEffect(() => {
+		if (!active) return;
+
+		const timer = setTimeout(() => {
+			inputRef.current?.focus();
+		}, 300);
+
+		return () => clearTimeout(timer);
+	}, [active]);
+
 
 	const canNext = email.length > 0 && isValidEmail(email);
 
@@ -18,7 +30,10 @@ export const StepEmail = ({ form, onNext }: StepProps) => {
 
 			<Input
 				id="email"
-				type="text"
+				type="email"
+				inputMode="email"
+				autoComplete="email"
+				ref={inputRef}
 				value={email}
 				onChange={(e) => setEmail(e.target.value)}
 				placeholder="이메일 입력"

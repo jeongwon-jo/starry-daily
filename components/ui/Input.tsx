@@ -13,6 +13,9 @@ interface InputProps {
 	readOnly?: boolean;
 	required?: boolean;
 	className?: string;
+	inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
+	pattern?: string;
+	autoComplete?: string;
 }
 
 export const Input = React.memo(
@@ -30,6 +33,9 @@ export const Input = React.memo(
 				readOnly,
 				required,
 				className,
+				inputMode,
+				pattern,
+				autoComplete
 			},
 			ref,
 		) => {
@@ -48,7 +54,10 @@ export const Input = React.memo(
 					readOnly={readOnly}
 					required={required}
 					value={value}
+					inputMode={inputMode}
 					onKeyDown={onKeyDown}
+					pattern={pattern}
+					autoComplete={autoComplete}
 				/>
 			);
 		},

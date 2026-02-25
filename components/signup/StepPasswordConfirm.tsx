@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button, Input } from "../ui";
 import { StepProps } from "@/app/signup/step1/page";
 
@@ -10,13 +10,24 @@ export const StepPasswordConfirm = ({
 	form,
 	onNext,
 	loading,
+	active
 }: StepProps) => {
 	const [pwdConfirm, setPwdConfirm] = useState("");
 
 	const passwordValid = isValidPassword(form.password);
 	const match = form.password && pwdConfirm === form.password;
 	const canNext = passwordValid && match && !loading;
+	const inputRef = useRef<HTMLInputElement>(null);
+		
+	useEffect(() => {
+		if (!active) return;
 
+		const timer = setTimeout(() => {
+			inputRef.current?.focus();
+		}, 300);
+
+		return () => clearTimeout(timer);
+	}, [active]);
 	return (
 		<div className="w-full shrink-0 px-5">
 			<h3 className="text-2xl font-bold text-primary-100 mb-6">
@@ -36,6 +47,7 @@ export const StepPasswordConfirm = ({
 				type="password"
 				value={pwdConfirm}
 				className="mt-2"
+				ref={inputRef}
 				onChange={(e) => setPwdConfirm(e.target.value)}
 				placeholder="영문 숫자 조합 8자리 이상"
 			/>
