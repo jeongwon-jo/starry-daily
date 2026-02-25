@@ -23,24 +23,30 @@ const SchoolSafeOuting = localFont({
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://starry-daily.vercel.app"),
-  title: "별별하루",
-  description: "소중한 하루를 정리하며 행운의 별을 모아보세요!",
+	title: "별별하루",
+	description: "소중한 하루를 정리하며 행운의 별을 모아보세요!",
+	viewport: {
+		width: "device-width",
+		initialScale: 1,
+		maximumScale: 1,
+		userScalable: false,
+	},
 	openGraph: {
-    title: "Starry Daily",
-    description: "별처럼 기록하는 나만의 하루",
-    url: "https://starry-daily.vercel.app",
-    siteName: "Starry Daily",
-    images: [
-      {
-        url: "/images/opengraph.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Starry Daily OG Image",
-      },
-    ],
-    locale: "ko_KR",
-    type: "website",
-  },
+		title: "Starry Daily",
+		description: "별처럼 기록하는 나만의 하루",
+		url: "https://starry-daily.vercel.app",
+		siteName: "Starry Daily",
+		images: [
+			{
+				url: "/images/opengraph.jpg",
+				width: 1200,
+				height: 630,
+				alt: "Starry Daily OG Image",
+			},
+		],
+		locale: "ko_KR",
+		type: "website",
+	},
 };
 
 export default function RootLayout({
