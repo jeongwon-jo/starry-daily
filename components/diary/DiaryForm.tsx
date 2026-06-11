@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
 import { Button, MessageModal } from "../ui";
@@ -17,12 +17,10 @@ export default function DiaryForm({
 	type,
 	selectedDate,
 	diary,
-	randomQuestion,
 }: {
 	type: string | undefined;
 	selectedDate: string | undefined;
 	diary?: Diary;
-	randomQuestion: string | null;
 }) {
 	const supabase = createClient();
   const router = useRouter();
@@ -31,6 +29,17 @@ export default function DiaryForm({
   const [mood, setMood] = useState<string | null>(diary?.mood ?? null);
   const [openModal, setOpenModal] = useState(false);
   const [message, setMessage] = useState("");
+  const [question, setQuestion] = useState<string | null>(diary?.question ?? null);
+  const [questionLoading, setQuestionLoading] = useState(false);
+
+  useEffect(() => {
+    if (type !== "question" || diary) return;
+    setQuestionLoading(true);
+    fetch("/api/diary/generate-question")
+      .then((res) => res.json())
+      .then((data) => setQuestion(data.question ?? null))
+      .finally(() => setQuestionLoading(false));
+  }, [type, diary]);
 	
 	function formatKoreanDate(dateString: string) {
 		const date = new Date(dateString);
@@ -79,7 +88,7 @@ export default function DiaryForm({
 				.update({
 					content,
 					mood,
-					question: type === "question" ? randomQuestion : null,
+					question: type === "question" ? question : null,
 				})
 				.eq("id", diary.id)
 				.eq("user_id", user.id)
@@ -91,7 +100,7 @@ export default function DiaryForm({
 				.from("diary")
 				.insert([
 					{
-						question: type === "question" ? randomQuestion : null,
+						question: type === "question" ? question : null,
 						content,
 						date: selectedDate ?? new Date().toISOString().split("T")[0],
 						mood,
@@ -114,9 +123,9 @@ export default function DiaryForm({
 	return (
 		<>
 			<div className="p-5 pb-24">
-				{type === "question" && randomQuestion && (
+				{type === "question" && (
 					<div className="w-full p-2.5 bg-[rgb(71,30,103,0.1)] dark:bg-[rgb(255,255,255,0.1)] rounded-xl text-center text-primary-100 relative [&:after]:content-[''] [&:after]:absolute [&:after]:left-1/2 [&:after]:-bottom-3 [&:after]:-translate-x-1/2 [&:after]:w-5.5 [&:after]:h-3 [&:after]:bg-[url('../assets/images/icon/icon_bubble_arrow_light.svg')] dark:[&:after]:bg-[url('../assets/images/icon/icon_bubble_arrow.svg')]">
-						Q. {randomQuestion}
+						{questionLoading ? "질문 생성 중..." : question ? `Q. ${question}` : ""}
 					</div>
 				)}
 				<div className="mt-6">
