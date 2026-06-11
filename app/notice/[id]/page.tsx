@@ -47,7 +47,7 @@ export default async function NoticeDtlPage({ params }: Props) {
 					<div>
 						<h3 className="text-lg text-primary-100">{notice.title}</h3>
 						<p className="mt-2 text-primary-500">
-							{new Date(notice.created_at).toLocaleDateString()}
+							{new Date(notice.created_at).toLocaleDateString("ko-KR", { year: "numeric", month: "2-digit", day: "2-digit" }).replace(/\. /g, ".").replace(/\.$/, "")}
 						</p>
 					</div>
 

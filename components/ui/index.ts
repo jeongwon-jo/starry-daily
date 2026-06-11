@@ -3,3 +3,4 @@ export { Input } from "./Input";
 export { ToggleSwitch } from "./ToggleSwitch";
 export { MessageModal } from "./MessageModal";
 export { ConfirmModal } from "./ConfirmModal";
+export { Loading } from "./Loading";

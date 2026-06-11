@@ -5,7 +5,7 @@ import DiaryItem from "@/components/diary/DiaryItem";
 import ListView from "@/components/diary/ListView";
 import SelectDiaryModal from "@/components/diary/SelectDiaryTypeModal";
 import { Header } from "@/components/layout";
-import { Button, MessageModal } from "@/components/ui";
+import { Button, Loading, MessageModal } from "@/components/ui";
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 
@@ -30,6 +30,7 @@ export default function DiaryListPage() {
     null,
   );
   const [openDiaryType, setOpenDiaryType] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth() + 1;
@@ -109,6 +110,7 @@ export default function DiaryListPage() {
 
     const fetchDiaries = async () => {
       setDiaries([]);
+      setIsLoading(true);
       const startOfMonth = new Date(year, month - 1, 1);
       const endOfMonth = new Date(year, month, 0, 23, 59, 59);
 
@@ -123,6 +125,7 @@ export default function DiaryListPage() {
       if (!error) {
         setDiaries(data ?? []);
       }
+      setIsLoading(false);
     };
 
     fetchDiaries();
@@ -148,108 +151,113 @@ export default function DiaryListPage() {
   const ableWrite =
     selectedDate !== null && !isFuture && selectedDiaryCount === 0;
 
-  return (
-    <div className="w-full min-h-dvh">
-      <Header type="navigation" title="일기장" isSetting={true}></Header>
-      <div className="container">
-        <div className="p-5">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={handlePrevMonth}
-                className="size-4 inline-block bg-[url('../assets/images/icon/icon_prev.svg')] bg-no-repeat"
-              ></button>
-              <span className="text-primary-100 text-lg">
-                {year}년 {month}월
-              </span>
-              <button
-                type="button"
-                onClick={handleNextMonth}
-                className="size-4 inline-block bg-[url('../assets/images/icon/icon_next.svg')] bg-no-repeat"
-              ></button>
+  if (isLoading) {
+    return <Loading />;
+  } else
+    return (
+      <div className="w-full min-h-dvh">
+        <Header type="navigation" title="일기장" isSetting={true}></Header>
+        <div className="container">
+          <div className="p-5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handlePrevMonth}
+                  className="size-4 inline-block bg-[url('../assets/images/icon/icon_prev.svg')] bg-no-repeat"
+                ></button>
+                <span className="text-primary-100 text-lg">
+                  {year}년 {month}월
+                </span>
+                <button
+                  type="button"
+                  onClick={handleNextMonth}
+                  className="size-4 inline-block bg-[url('../assets/images/icon/icon_next.svg')] bg-no-repeat"
+                ></button>
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  type="button"
+                  className={`size-6 inline-block bg-[url('../assets/images/icon/icon_calendar.svg')] bg-no-repeat relative mr-1.5 ${
+                    tab == "calendar"
+                      ? "bg-[url('../assets/images/icon/icon_calendar_active_light.svg')] dark:bg-[url('../assets/images/icon/icon_calendar_active.svg')]"
+                      : ""
+                  } [&:after]:content-[''] [&:after]:w-[1px] [&:after]:h-3 [&:after]:bg-primary-500 [&:after]:absolute [&:after]:top-1/2 [&:after]:-translate-y-1/2 [&:after]:-right-1.5`}
+                  onClick={() => setTab("calendar")}
+                ></button>
+                <button
+                  type="button"
+                  className={`size-6 inline-block bg-[url('../assets/images/icon/icon_list.svg')] bg-no-repeat ${
+                    tab == "list"
+                      ? "bg-[url('../assets/images/icon/icon_list_active_light.svg')] dark:bg-[url('../assets/images/icon/icon_list_active.svg')]"
+                      : ""
+                  }`}
+                  onClick={() => setTab("list")}
+                ></button>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <button
-                type="button"
-                className={`size-6 inline-block bg-[url('../assets/images/icon/icon_calendar.svg')] bg-no-repeat relative mr-1.5 ${
-                  tab == "calendar"
-                    ? "bg-[url('../assets/images/icon/icon_calendar_active_light.svg')] dark:bg-[url('../assets/images/icon/icon_calendar_active.svg')]"
-                    : ""
-                } [&:after]:content-[''] [&:after]:w-[1px] [&:after]:h-3 [&:after]:bg-primary-500 [&:after]:absolute [&:after]:top-1/2 [&:after]:-translate-y-1/2 [&:after]:-right-1.5`}
-                onClick={() => setTab("calendar")}
-              ></button>
-              <button
-                type="button"
-                className={`size-6 inline-block bg-[url('../assets/images/icon/icon_list.svg')] bg-no-repeat ${
-                  tab == "list"
-                    ? "bg-[url('../assets/images/icon/icon_list_active_light.svg')] dark:bg-[url('../assets/images/icon/icon_list_active.svg')]"
-                    : ""
-                }`}
-                onClick={() => setTab("list")}
-              ></button>
-            </div>
+            {tab == "calendar" && (
+              <>
+                <CalendarView
+                  year={year}
+                  month={month}
+                  diaries={diaries}
+                  onSelectDate={(date) => setSelectedDate(date)}
+                />
+                {selectedDate && selectedDiary && (
+                  <div className="mt-6">
+                    <DiaryItem
+                      key={selectedDiary.id}
+                      id={selectedDiary.id}
+                      dayText={`${new Date(selectedDiary.date).getDate()}일`}
+                      question={selectedDiary.question}
+                      content={selectedDiary.content}
+                      mood={selectedDiary.mood}
+                      onDeleteSuccess={() => onDeleteSuccess(selectedDiary.id)}
+                    />
+                  </div>
+                )}
+                {!selectedDiary && ableWrite && (
+                  <div className="mt-3">
+                    <Button
+                      type="button"
+                      variant="primary700"
+                      full
+                      onClick={() => {
+                        setOpenDiaryType(true);
+                      }}
+                    >
+                      {selectedDate}일 일기 작성하기
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
+            {tab == "list" && (
+              <>
+                <ListView
+                  diaries={diaries}
+                  onDeleteSuccess={(deletedId) => {
+                    setDiaries((prev) =>
+                      prev.filter((d) => d.id !== deletedId),
+                    );
+                    setOpenModal(true);
+                    setMessage("게시물이 삭제되었습니다.");
+                  }}
+                />
+              </>
+            )}
           </div>
-          {tab == "calendar" && (
-            <>
-              <CalendarView
-                year={year}
-                month={month}
-                diaries={diaries}
-                onSelectDate={(date) => setSelectedDate(date)}
-              />
-              {selectedDate && selectedDiary && (
-                <div className="mt-6">
-                  <DiaryItem
-                    key={selectedDiary.id}
-                    id={selectedDiary.id}
-                    dayText={`${new Date(selectedDiary.date).getDate()}일`}
-                    question={selectedDiary.question}
-                    content={selectedDiary.content}
-                    mood={selectedDiary.mood}
-                    onDeleteSuccess={() => onDeleteSuccess(selectedDiary.id)}
-                  />
-                </div>
-              )}
-              {!selectedDiary && ableWrite && (
-                <div className="mt-3">
-                  <Button
-                    type="button"
-                    variant="primary700"
-                    full
-                    onClick={() => {
-                      setOpenDiaryType(true);
-                    }}
-                  >
-                    {selectedDate}일 일기 작성하기
-                  </Button>
-                </div>
-              )}
-            </>
-          )}
-          {tab == "list" && (
-            <>
-              <ListView
-                diaries={diaries}
-                onDeleteSuccess={(deletedId) => {
-                  setDiaries((prev) => prev.filter((d) => d.id !== deletedId));
-                  setOpenModal(true);
-                  setMessage("게시물이 삭제되었습니다.");
-                }}
-              />
-            </>
-          )}
         </div>
+        <SelectDiaryModal
+          open={openDiaryType}
+          setOpenDiaryType={setOpenDiaryType}
+        />
+        <MessageModal
+          open={openModal}
+          message={message || ""}
+          onClose={() => setOpenModal(false)}
+        />
       </div>
-      <SelectDiaryModal
-        open={openDiaryType}
-        setOpenDiaryType={setOpenDiaryType}
-      />
-      <MessageModal
-        open={openModal}
-        message={message || ""}
-        onClose={() => setOpenModal(false)}
-      />
-    </div>
-  );
+    );
 }
