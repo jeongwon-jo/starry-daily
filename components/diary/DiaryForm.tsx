@@ -11,7 +11,6 @@ import angryMood from "@/assets/images/sub/star_angry_face.png";
 import unrestMood from "@/assets/images/sub/star_unrest_face.png";
 import tiredMood from "@/assets/images/sub/star_tired_face.png";
 import { Diary } from "@/app/diary/page";
-import Image from "next/image";
 
 export default function DiaryForm({
 	type,
@@ -30,15 +29,17 @@ export default function DiaryForm({
   const [openModal, setOpenModal] = useState(false);
   const [message, setMessage] = useState("");
   const [question, setQuestion] = useState<string | null>(diary?.question ?? null);
-  const [questionLoading, setQuestionLoading] = useState(false);
+  const [questionLoading, setQuestionLoading] = useState(type === "question" && !diary);
 
   useEffect(() => {
     if (type !== "question" || diary) return;
-    setQuestionLoading(true);
-    fetch("/api/diary/generate-question")
+    const controller = new AbortController();
+    fetch("/api/diary/generate-question", { signal: controller.signal })
       .then((res) => res.json())
       .then((data) => setQuestion(data.question ?? null))
+      .catch(() => {})
       .finally(() => setQuestionLoading(false));
+    return () => controller.abort();
   }, [type, diary]);
 	
 	function formatKoreanDate(dateString: string) {
@@ -55,7 +56,7 @@ export default function DiaryForm({
 	const baseDate = diary
   ? diary.created_at
   : new Date().toISOString();
-	const displayDate = selectedDate ?? formatKoreanDate(baseDate);
+	const displayDate = selectedDate || formatKoreanDate(baseDate);
 
 	const handleSave = async () => {
 		if (!content) {
@@ -102,7 +103,7 @@ export default function DiaryForm({
 					{
 						question: type === "question" ? question : null,
 						content,
-						date: selectedDate ?? new Date().toISOString().split("T")[0],
+						date: selectedDate || new Date().toISOString().split("T")[0],
 						mood,
 						user_id: user.id,
 					},

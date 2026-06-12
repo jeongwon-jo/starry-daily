@@ -153,9 +153,10 @@ export default function Home() {
               <p className="text-lg text-primary-100 text-center mb-6">
                 &ldquo;오늘 하루는 어땠어?&rdquo;
               </p>
-              <div className="relative w-[70%] max-w-[300px] m-auto">
+              <div className="relative w-[70%] max-w-75 m-auto">
                 <Image
                   src={theme === "dark" ? bottle : bottleLight}
+                  width={300}
                   alt="bottle"
                 />
                 <div
